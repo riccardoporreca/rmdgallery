@@ -1,0 +1,42 @@
+---
+title: {{title}}
+---
+
+```{r, echo = FALSE}
+htmltools::tagList(
+  
+  htmltools::div(
+    class = "before-embed",
+    htmltools::HTML("{{get0('before_embed', inherits = FALSE, ifnotfound = '')}}")
+  ),  
+  
+  htmltools::div(
+    htmltools::tags$script(
+      src = sprintf(
+        "https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/%s/iframeResizer.min.js",
+        "{{ifelse(!is.null(geom$iframeresizer_ver), iframeresizer_ver, '4.2.1')}}"
+      )
+    ),
+    htmltools::tags$iframe(
+      id = "gallery-iframe", src = "{{content}}", scrolling = "no", frameborder = "0",
+      style = "min-width: 100%; {{ifelse(!is.null(geom$height), sprintf('height: %s;', geom$height), '')}}"
+    ),
+    htmltools::tags$script(
+      "iFrameResize(
+         {
+           /* Options https://github.com/davidjbradshaw/iframe-resizer#api-documentation */
+           // we need to explicitly provide the URL as allowed origin
+           // checkOrigin: ['{{content}}']
+         },
+         '#gallery-iframe'
+       );"
+    )
+  ),
+  htmltools::div(
+    class = "after-embed",
+    htmltools::HTML("{{get0('after_embed', inherits = FALSE, ifnotfound = '')}}")
+  ),  
+  
+)
+```
+

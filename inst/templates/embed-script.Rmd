@@ -1,0 +1,24 @@
+---
+title: {{title}}
+---
+
+```{r, echo = FALSE}
+htmltools::tagList(
+  
+  htmltools::div(
+    class = "before-embed",
+    htmltools::HTML("{{get0('before_embed', inherits = FALSE, ifnotfound = '')}}")
+  ),  
+  
+  htmltools::div(
+    htmltools::tags$script(src = "{{content}}")
+  ),
+  htmltools::div(
+    class = "after-embed",
+    htmltools::HTML("{{get0('after_embed', inherits = FALSE, ifnotfound = '')}}")
+  ),  
+  
+)
+```
+
+
