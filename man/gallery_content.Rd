@@ -2,7 +2,7 @@
 % Please edit documentation in R/templates.R
 \name{gallery_content}
 \alias{gallery_content}
-\title{Gallery page conent}
+\title{Gallery page content}
 \usage{
 gallery_content(..., before = NULL, after = NULL)
 }

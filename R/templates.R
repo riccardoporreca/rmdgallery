@@ -12,7 +12,7 @@ gallery_div <- function(class, content) {
 }
 
 
-#' Gallery page conent
+#' Gallery page content
 #'
 #' Create the HTML of a gallery page, comprising three `<div>` elements: one
 #' initial wrapping around `before`, one main comprising the arbitrary
