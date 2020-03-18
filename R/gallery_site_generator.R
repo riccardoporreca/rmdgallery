@@ -1,3 +1,6 @@
+# rmarkdown/R/render_site.R ----
+# https://github.com/rstudio/rmarkdown/blob/947b87259333b43f47b5f59e91dc9a1ea10d1c4d/R/render_site.R
+
 #' Gallery website generator.
 #'
 #' @inheritParams rmarkdown::default_site_generator
@@ -9,7 +12,7 @@
 gallery_site_generator <- function(input, ...) {
 
   # get the site config
-  config <- site_config(input)
+  config <- rmarkdown::site_config(input)
   if (is.null(config))
     stop("No site configuration (_site.yml) file found.")
 
@@ -26,7 +29,7 @@ gallery_site_generator <- function(input, ...) {
       "^[^_].*\\.%s$", if (isTRUE(config$autospin)) {
         "([Rr]|[Rr]?md)"
       } else {
-        "[Rr]?md$"
+        "[Rr]?md"
       }
     )
     files <- list.files(input, pattern)
@@ -55,7 +58,7 @@ gallery_site_generator <- function(input, ...) {
         },
         gallery_entry, gallery_links
       )
-      file.copy(navbar_html(config$navbar), "_navbar.html", overwrite = TRUE)
+      file.copy(rmarkdown::navbar_html(config$navbar), "_navbar.html", overwrite = TRUE)
       on.exit(unlink("_navbar.html"))
     }
 
@@ -218,9 +221,71 @@ gallery_site_generator <- function(input, ...) {
   )
 }
 
-# Ugly hack to get the internal rmarkdown functions as in the original
-# rmarkdown::default_site_generator()
-environment(gallery_site_generator) <- list2env(
-  as.list(environment(rmarkdown::default_site_generator)),
-  parent = environment(gallery_site_generator)
-)
+
+# > internals ----
+
+# we suppress messages during render so that "Output created" isn't emitted
+# (which could result in RStudio previewing the wrong file)
+render_current_session <- function(...) suppressMessages(rmarkdown::render(...))
+
+render_new_session <- function(...) {
+  if (!requireNamespace("callr", quietly = TRUE)) {
+    stop("The callr package must be installed when `new_session: true`.")
+  }
+  callr::r(
+    function(...) { suppressMessages(rmarkdown::render(...)) },
+    args = list(...),
+    block_callback = function(x) cat(x)
+  )
+}
+
+# utility function to copy all files into the _site directory
+copy_site_resources <- function(input) {
+
+  # get the site config
+  config <- rmarkdown::site_config(input)
+
+  if (config$output_dir != ".") {
+
+    # get the list of files
+    files <- copyable_site_resources(input = input, config = config)
+
+    # perform the copy
+    output_dir <- file.path(input, config$output_dir)
+    file.copy(from = file.path(input, files),
+              to = output_dir,
+              recursive = TRUE)
+  }
+}
+
+# utility function to list the files that should be copied
+copyable_site_resources <- function(input, config = rmarkdown::site_config(input)) {
+
+  include <- config$include
+
+  exclude <- config$exclude
+  if (config$output_dir != ".")
+    exclude <- c(exclude, config$output_dir)
+
+  rmarkdown::site_resources(input, include, exclude)
+}
+
+
+# rmarkdown/R/util.R ----
+# https://github.com/rstudio/rmarkdown/blob/947b87259333b43f47b5f59e91dc9a1ea10d1c4d/R/util.R
+
+dir_exists <- function(x) {
+  length(x) > 0 && utils::file_test('-d', x)
+}
+
+file_with_ext <- function(file, ext) {
+  paste(tools::file_path_sans_ext(file), ".", ext, sep = "")
+}
+
+knitr_files_dir <- function(file) {
+  paste(tools::file_path_sans_ext(file), "_files", sep = "")
+}
+
+knitr_root_cache_dir <- function(file) {
+  paste(tools::file_path_sans_ext(file), "_cache", sep = "")
+}
