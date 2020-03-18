@@ -15,5 +15,6 @@ gallery_site_generator(input, ...)
 Gallery website generator.
 }
 \details{
-See \code{\link[rmarkdown:default_site_generator]{rmarkdown::default_site_generator()}}
+See \code{\link[rmarkdown:default_site_generator]{rmarkdown::default_site_generator()}}, from which the
+implementation was adapted.
 }

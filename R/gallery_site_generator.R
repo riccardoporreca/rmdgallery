@@ -2,7 +2,8 @@
 #'
 #' @inheritParams rmarkdown::default_site_generator
 #'
-#' @details See [rmarkdown::default_site_generator()]
+#' @details See [rmarkdown::default_site_generator()], from which the
+#'   implementation was adapted.
 #'
 #' @export
 gallery_site_generator <- function(input, ...) {
@@ -43,18 +44,20 @@ gallery_site_generator <- function(input, ...) {
                      ...) {
 
     gallery_idx <- which(vapply(config$navbar$left, `[[`, "text", FUN.VALUE = "") == "Gallery")
-    meta <- list.files(config$meta, "[.]json$", full.names = TRUE)
-    gallery_links <- file_with_ext(basename(meta), "html")
-    gallery_entry <- sapply(meta, function(x) jsonlite::read_json(x)$menu_entry)
-    config$navbar$left[[gallery_idx]]$menu <- mapply(
-      SIMPLIFY = FALSE, USE.NAMES = FALSE,
-      function(text, href) {
-        list(text = text, href = href)
-      },
-      gallery_entry, gallery_links
-    )
-    file.copy(navbar_html(config$navbar), "_navbar.html", overwrite = TRUE)
-    on.exit(unlink("_navbar.html"))
+    if (length(gallery_idx) == 1L) {
+      meta <- list.files(config$meta, "[.]json$", full.names = TRUE)
+      gallery_links <- file_with_ext(basename(meta), "html")
+      gallery_entry <- sapply(meta, function(x) jsonlite::read_json(x)$menu_entry)
+      config$navbar$left[[gallery_idx]]$menu <- mapply(
+        SIMPLIFY = FALSE, USE.NAMES = FALSE,
+        function(text, href) {
+          list(text = text, href = href)
+        },
+        gallery_entry, gallery_links
+      )
+      file.copy(navbar_html(config$navbar), "_navbar.html", overwrite = TRUE)
+      on.exit(unlink("_navbar.html"))
+    }
 
     # track outputs
     outputs <- c()
@@ -82,14 +85,10 @@ gallery_site_generator <- function(input, ...) {
 
       if (tools::file_ext(x) == "json") {
         meta <- read_meta(x)
-        if (length(config$before_embed) > 0L) {
-          meta$before_embed <- glue::glue_data(meta, config$before_embed, .open = "{{", .close = "}}")
-        }
-        if (length(config$after_embed) > 0L) {
-          meta$after_embed <- glue::glue_data(meta, config$after_embed, .open = "{{", .close = ".}}")
-        }
+        # gallery config:
+        meta$gallery <- if (is.null(config$gallery)) list() else config$gallery
         output_file <- file.path(input, file_with_ext(basename(x), "html"))
-        if (!quiet) message("\nRendering to : ", output_file)
+        if (!quiet) message("\nRendering to: ", output_file)
         x <- file.path(input, file_with_ext(sprintf(".tmp_%s", basename(x)), "Rmd"))
         writeLines(from_template(meta), x)
         on.exit(unlink(x))
@@ -218,6 +217,9 @@ gallery_site_generator <- function(input, ...) {
     clean = clean
   )
 }
+
+# Ugly hack to get the internal rmarkdown functions as in the original
+# rmarkdown::default_site_generator()
 environment(gallery_site_generator) <- list2env(
   as.list(environment(rmarkdown::default_site_generator)),
   parent = environment(gallery_site_generator)

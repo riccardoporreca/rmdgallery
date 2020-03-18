@@ -13,8 +13,12 @@ License: `use_mit_license()`, `use_gpl3_license()` or friends to
 Encoding: UTF-8
 LazyData: true
 Imports:
-  glue,
-  jsonlite,
-  rmarkdown
+    glue,
+    htmltools,
+    jsonlite,
+    rmarkdown
+Suggests: 
+    testthat (>= 2.1.0)
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.0
+

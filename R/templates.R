@@ -1,13 +1,75 @@
+gallery_div <- function(class, content) {
+  if (!is.null(content)) {
+    htmltools::div(
+      class = class,
+      if (is.character(content)) {
+        htmltools::HTML(content)
+      } else {
+        content
+      }
+    )
+  }
+}
+
+
+#' Gallery page conent
+#'
+#' Create the HTML of a gallery page, comprising three `<div>` elements: one
+#' initial wrapping around `before`, one main comprising the arbitrary
+#' `htmltools::tagList(...)`, and one final wrapping around `after`.
+#'
+#' @param ... Unnamed items included in the main `<div>`
+#' @param before,after The content of the `<div>` before and after
+#'   the main. If character, the value is wrapped inside [htmltools::HTML()].
+#'
+#' @inherit htmltools::tagList return
+#'
+#' @export
+gallery_content <- function(..., before = NULL, after = NULL) {
+
+  htmltools::tagList(
+
+    gallery_div(
+      class = "gallery-before",
+      before
+    ),
+
+    gallery_div(
+      class = "gallery-main",
+      htmltools::tagList(...)
+    ),
+
+    gallery_div(
+      class = "gallery-after",
+      after
+    ),
+
+  )
+}
+
 read_meta <- function(file) {
   jsonlite::read_json(file)
 }
 
-fill_template <- function(meta, template) {
-  glue::glue_data(
-    meta,
-    paste(template, collapse = "\n"),
+
+fill <- function(with, x) {
+  y <- glue::glue_data(
+    with,
+    x,
     .open = "{{", .close = "}}"
   )
+  class(y) <- class(x)
+  y
+}
+
+fill_template <- function(meta, template) {
+  if (length(meta$gallery$include_before) > 0L) {
+    meta$gallery$include_before <- fill(meta, meta$gallery$include_before)
+  }
+  if (length(meta$gallery$include_after) > 0L) {
+    meta$gallery$include_after <- fill(meta, meta$gallery$include_after)
+  }
+  fill(meta, paste(template, collapse = "\n"))
 }
 
 find_template <- function(template, paths = character(0)) {
@@ -28,5 +90,4 @@ find_template <- function(template, paths = character(0)) {
 from_template <- function(meta, paths = character(0)) {
   template <- find_template(meta$template, paths)
   fill_template(meta, readLines(template))
-
 }
