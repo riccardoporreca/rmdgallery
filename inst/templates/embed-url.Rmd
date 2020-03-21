@@ -32,6 +32,7 @@ rmdgallery::gallery_content(
          '#gallery-iframe'
        );"
   ),
-  after = params$gallery$include_after
+  after = params$gallery$include_after,
+  class = "gallery-embed-url"
 )
 ```

@@ -9,6 +9,7 @@ params:
 rmdgallery::gallery_content(
   before = params$gallery$include_before,
   htmltools::tags$script(src = params$content),
-  after = params$gallery$include_after
+  after = params$gallery$include_after,
+  class = "gallery-embed-script"
 )
 ```

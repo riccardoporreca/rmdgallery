@@ -14,38 +14,40 @@ gallery_div <- function(class, content) {
 
 #' Gallery page content
 #'
-#' Create the HTML of a gallery page, comprising three `<div>` elements: one
+#' Create the content of a gallery page, comprising three `<div>` elements: one
 #' initial wrapping around `before`, one main comprising the arbitrary
-#' `htmltools::tagList(...)`, and one final wrapping around `after`.
+#' `htmltools::tagList(...)`, and one final wrapping around `after`. The three
+#' elements have custom classes `"gallery-before"`, `"gallery-main"`,
+#' `"gallery-after"`, and are wrapped in a parent `<div>` with class
+#' `"gallery-container"` class plus the provided custom `class`.
 #'
 #' @param ... Unnamed items included in the main `<div>`
 #' @param before,after The content of the `<div>` before and after
 #'   the main. If character, the value is wrapped inside [htmltools::HTML()].
+#' @param class Character vector of custom classes.
+#'
 #'
 #' @inherit htmltools::tagList return
 #'
 #' @export
-gallery_content <- function(..., before = NULL, after = NULL) {
-
-  htmltools::tagList(
-
+gallery_content <- function(..., before = NULL, after = NULL, class = NULL) {
+  htmltools::div(
+    class = paste(c("gallery-container", class), collapse = " "),
     gallery_div(
       class = "gallery-before",
       before
     ),
-
     gallery_div(
       class = "gallery-main",
       htmltools::tagList(...)
     ),
-
     gallery_div(
       class = "gallery-after",
       after
-    ),
-
+    )
   )
 }
+
 
 read_meta <- function(file) {
   jsonlite::read_json(file)

@@ -4,20 +4,25 @@
 \alias{gallery_content}
 \title{Gallery page content}
 \usage{
-gallery_content(..., before = NULL, after = NULL)
+gallery_content(..., before = NULL, after = NULL, class = NULL)
 }
 \arguments{
 \item{...}{Unnamed items included in the main \verb{<div>}}
 
 \item{before, after}{The content of the \verb{<div>} before and after
 the main. If character, the value is wrapped inside \code{\link[htmltools:HTML]{htmltools::HTML()}}.}
+
+\item{class}{Character vector of custom classes.}
 }
 \value{
 An HTML tag object that can be rendered as HTML using
   \code{\link{as.character}()}.
 }
 \description{
-Create the HTML of a gallery page, comprising three \verb{<div>} elements: one
+Create the content of a gallery page, comprising three \verb{<div>} elements: one
 initial wrapping around \code{before}, one main comprising the arbitrary
-\code{htmltools::tagList(...)}, and one final wrapping around \code{after}.
+\code{htmltools::tagList(...)}, and one final wrapping around \code{after}. The three
+elements have custom classes \code{"gallery-before"}, \code{"gallery-main"},
+\code{"gallery-after"}, and are wrapped in a parent \verb{<div>} with class
+\code{"gallery-container"} class plus the provided custom \code{class}.
 }
