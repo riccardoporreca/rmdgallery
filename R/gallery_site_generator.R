@@ -48,13 +48,22 @@ gallery_site_generator <- function(input, ...) {
       stopifnot(length(gallery_navbar) == 1L)
       meta <- list.files(file.path(input, config$meta), "[.]json$", full.names = TRUE)
       gallery_links <- file_with_ext(basename(meta), "html")
-      gallery_entry <- sapply(meta, function(x) jsonlite::read_json(x)$menu_entry)
+      gallery_entry <- vapply(meta, FUN.VALUE = "", function(x) {
+        jsonlite::read_json(x)$menu_entry %||% NA_character_
+      })
+      has_entry <- !is.na(gallery_entry)
+      duplicated <- duplicated(gallery_entry[has_entry])
+      if (any(duplicated)) {
+        stop(
+          "Found duplicate navbar menu entries: ",
+          toString(sQuote(gallery_entry[has_entry][duplicated])))
+      }
       gallery_navbar[[1L]][[1]]$menu <- mapply(
         SIMPLIFY = FALSE, USE.NAMES = FALSE,
         function(text, href) {
           list(text = text, href = href)
         },
-        gallery_entry, gallery_links
+        gallery_entry[has_entry], gallery_links[has_entry]
       )
       # add to the user-defined navbar from the main site configuration
       navbar <- config$navbar
