@@ -16,7 +16,7 @@ gallery_site_generator <- function(input, ...) {
   if (is.null(config))
     stop("No site configuration (_site.yml) file found.")
 
-  config$meta <- ifelse(is.null(config$meta), "meta", config$meta)
+  config$meta <- config$meta %||% "meta"
 
   # helper function to get all input files. includes all .Rmd and
   # .md files that don't start with "_" (note that we don't do this
@@ -35,8 +35,35 @@ gallery_site_generator <- function(input, ...) {
     files <- list.files(input, pattern)
     if (is.character(config$autospin)) files <- c(files, config$autospin)
     files <- files[!grepl("^README\\.R?md$", files)]
-    files <- c(files, file.path(config$meta, list.files(file.path(input, config$meta), "[.]json$")))
+    meta_files <- file.path(config$meta, list.files(file.path(input, config$meta), "[.]json$"))
+    files <- c(files, meta_files)
     files
+  }
+
+  # helper function constructing the gallery navbar entry
+  navbar_with_gallery <- function() {
+    if (!is.null(config$gallery$navbar)) {
+      gallery_navbar <- config$gallery$navbar
+      # must have one element, which is the location, e.g. $left
+      stopifnot(length(gallery_navbar) == 1L)
+      meta <- list.files(file.path(input, config$meta), "[.]json$", full.names = TRUE)
+      gallery_links <- file_with_ext(basename(meta), "html")
+      gallery_entry <- sapply(meta, function(x) jsonlite::read_json(x)$menu_entry)
+      gallery_navbar[[1L]][[1]]$menu <- mapply(
+        SIMPLIFY = FALSE, USE.NAMES = FALSE,
+        function(text, href) {
+          list(text = text, href = href)
+        },
+        gallery_entry, gallery_links
+      )
+      # add to the user-defined navbar from the main site configuration
+      navbar <- config$navbar
+      navbar[[names(gallery_navbar)]] <- c(
+        navbar[[names(gallery_navbar)]],
+        gallery_navbar[[1]]
+      )
+      navbar
+    }
   }
 
   # define render function (use ... to gracefully handle future args)
@@ -46,20 +73,11 @@ gallery_site_generator <- function(input, ...) {
                      quiet,
                      ...) {
 
-    gallery_idx <- which(vapply(config$navbar$left, `[[`, "text", FUN.VALUE = "") == "Gallery")
-    if (length(gallery_idx) == 1L) {
-      meta <- list.files(config$meta, "[.]json$", full.names = TRUE)
-      gallery_links <- file_with_ext(basename(meta), "html")
-      gallery_entry <- sapply(meta, function(x) jsonlite::read_json(x)$menu_entry)
-      config$navbar$left[[gallery_idx]]$menu <- mapply(
-        SIMPLIFY = FALSE, USE.NAMES = FALSE,
-        function(text, href) {
-          list(text = text, href = href)
-        },
-        gallery_entry, gallery_links
-      )
-      file.copy(rmarkdown::navbar_html(config$navbar), "_navbar.html", overwrite = TRUE)
-      on.exit(unlink("_navbar.html"))
+    navbar <- navbar_with_gallery()
+    if (!is.null(navbar) == 1L) {
+      custom_navbar <- file.path(input, "_navbar.html")
+      file.copy(rmarkdown::navbar_html(navbar), custom_navbar, overwrite = TRUE)
+      on.exit(unlink(custom_navbar))
     }
 
     # track outputs
