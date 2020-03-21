@@ -18,6 +18,7 @@ Imports:
     glue,
     htmltools,
     jsonlite,
+    knitr,
     rmarkdown
 Suggests: 
     testthat (>= 2.1.0)

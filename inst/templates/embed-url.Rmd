@@ -1,30 +1,37 @@
 ---
 title: {{title}}
+params:
+  content: NULL
+  gallery: NULL
+  geom: NULL
 ---
 
 ```{r, echo = FALSE}
 rmdgallery::gallery_content(
-  before = {{deparse(gallery$include_before)}},
+  before = params$gallery$include_before,
   htmltools::tags$script(
     src = sprintf(
       "https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/%s/iframeResizer.min.js",
-      "{{ifelse(!is.null(geom$iframeresizer_ver), iframeresizer_ver, '4.2.1')}}"
+      params$geom$iframeresizer_ver %||% "4.2.1"
     )
   ),
   htmltools::tags$iframe(
-    id = "gallery-iframe", src = "{{content}}", scrolling = "no", frameborder = "0",
-    style = "min-width: 100%; {{ifelse(!is.null(geom$height), sprintf('height: %s;', geom$height), '')}}"
+    id = "gallery-iframe", src = params$content, scrolling = "no", frameborder = "0",
+    style = htmltools::css(
+      "min-width" = "100%",
+      "height" = params$geom$height
+    )
   ),
   htmltools::tags$script(
     "iFrameResize(
          {
            /* Options https://github.com/davidjbradshaw/iframe-resizer#api-documentation */
-           // we need to explicitly provide the URL as allowed origin
-           // checkOrigin: ['{{content}}']
+           // Do not check the origin, since we embed from arbitrary domains
+           checkOrigin: false
          },
          '#gallery-iframe'
        );"
   ),
-  after = {{deparse(gallery$include_after)}}
+  after = params$gallery$include_after
 )
 ```

@@ -3,7 +3,7 @@ common_meta <- list(
     include_before = '<hr><a href="https://example.com">before - Author: {{author}}</a><hr/>',
     include_after = "<hr>after - {{title}}<hr>"
   ),
-  title = "A Title",
+  title = 'A "Foo" & Bar',
   author = "Me"
 )
 
@@ -14,7 +14,7 @@ common_meta <- list(
     )
     rmd <- tempfile(template, fileext = ".rmd")
     writeLines(filled, rmd)
-    html <- testthat::expect_error(rmarkdown::render(rmd), NA)
+    html <- testthat::expect_error(rmarkdown::render(rmd, params = attr(filled, "params")), NA)
     if (interactive()) browseURL(html)
   })
 }

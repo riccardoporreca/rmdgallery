@@ -1,11 +1,14 @@
 ---
 title: {{title}}
+params:
+  content: NULL
+  gallery: NULL
 ---
 
 ```{r, echo = FALSE}
 rmdgallery::gallery_content(
-  before = {{deparse(gallery$include_before)}},
-  htmltools::tags$script(src = "{{content}}"),
-  after = {{deparse(gallery$include_after)}}
+  before = params$gallery$include_before,
+  htmltools::tags$script(src = params$content),
+  after = params$gallery$include_after
 )
 ```

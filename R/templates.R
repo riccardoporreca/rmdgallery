@@ -69,7 +69,10 @@ fill_template <- function(meta, template) {
   if (length(meta$gallery$include_after) > 0L) {
     meta$gallery$include_after <- fill(meta, meta$gallery$include_after)
   }
-  fill(meta, paste(template, collapse = "\n"))
+  filled <- fill(meta, paste(template, collapse = "\n"))
+  knit_params <- names(knitr::knit_params(filled, evaluate = FALSE))
+  attr(filled, "params") <- meta[names(meta) %in% knit_params]
+  filled
 }
 
 find_template <- function(template, paths = character(0)) {

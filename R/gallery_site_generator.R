@@ -111,14 +111,20 @@ gallery_site_generator <- function(input, ...) {
         output_file <- file.path(input, file_with_ext(basename(x), "html"))
         if (!quiet) message("\nRendering to: ", output_file)
         x <- file.path(input, file_with_ext(sprintf(".tmp_%s", basename(x)), "Rmd"))
-        writeLines(from_template(meta), x)
+        rmd_content <- from_template(meta)
+        knit_params <- attr(rmd_content, "params")
+        writeLines(rmd_content, x)
         on.exit(unlink(x))
       }
+
+      # make some useful utils available when rendering
+      envir <- list2env(render_time_utils, parent = envir)
 
       output <- render_one(input = x,
                            output_format = output_format, output_file = output_file,
                            output_options = list(lib_dir = "site_libs",
                                                  self_contained = FALSE),
+                           params = knit_params,
                            envir = envir,
                            quiet = quiet)
 
