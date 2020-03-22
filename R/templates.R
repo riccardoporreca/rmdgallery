@@ -49,11 +49,6 @@ gallery_content <- function(..., before = NULL, after = NULL, class = NULL) {
 }
 
 
-read_meta <- function(file) {
-  jsonlite::read_json(file)
-}
-
-
 fill <- function(with, x) {
   y <- glue::glue_data(
     with,
