@@ -8,11 +8,14 @@ read_meta <- function(files, single = FALSE) {
     c,
     lapply(files, function(file) {
       meta <- jsonlite::read_json(file)
-      meta$source <- basename(file)
       if (isTRUE(single)) {
         meta <- list(meta)
         names(meta) <- tools::file_path_sans_ext(basename(file))
       }
+      meta <- lapply(meta, function(x) {
+        x$source <- basename(file)
+        x
+      })
       meta
     })
   )
