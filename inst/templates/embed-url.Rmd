@@ -3,7 +3,8 @@ title: {{title}}
 params:
   content: NULL
   gallery: NULL
-  geom: NULL
+  css: NULL
+  iframeresizer_ver: "4.2.1"
 ---
 
 ```{r, echo = FALSE}
@@ -12,15 +13,12 @@ rmdgallery::gallery_content(
   htmltools::tags$script(
     src = sprintf(
       "https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/%s/iframeResizer.min.js",
-      params$geom$iframeresizer_ver %||% "4.2.1"
+      params$iframeresizer_ver
     )
   ),
   htmltools::tags$iframe(
     id = "gallery-iframe", src = params$content, scrolling = "no", frameborder = "0",
-    style = htmltools::css(
-      "min-width" = "100%",
-      "height" = params$geom$height
-    )
+    style = do.call(htmltools::css, c(list("min-width" = "100%"), params$css))
   ),
   htmltools::tags$script(
     "iFrameResize(

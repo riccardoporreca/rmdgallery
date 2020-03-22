@@ -31,6 +31,11 @@ common_meta <- list(
 
 .test_template(
   template = "embed-url",
-  content = "https://miraisolutions.shinyapps.io/rTRhexNG",
-  geom = NULL
+  content = "https://miraisolutions.shinyapps.io/rTRhexNG"
+)
+
+.test_template(
+  template = "embed-url",
+  content = "https://mirai-solutions.ch/techguides",
+  css = list(height = "67vh")
 )
