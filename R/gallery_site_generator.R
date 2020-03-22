@@ -9,7 +9,7 @@
 #'   implementation was adapted.
 #'
 #' @export
-gallery_site_generator <- function(input, ...) {
+gallery_site <- function(input, ...) {
 
   # get the site config
   config <- rmarkdown::site_config(input)
@@ -254,6 +254,10 @@ gallery_site_generator <- function(input, ...) {
   )
 }
 
+
+#' @rdname gallery_site
+#' @export
+gallery_site_generator <- gallery_site
 
 # > internals ----
 
