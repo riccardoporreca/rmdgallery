@@ -62,7 +62,7 @@ The metadata for each page to be included in the website are defined in JSON fil
 ```
 defines the metadata for pages rendered as `foo.html` and `bar.html` with the given page `title`, also adding the specified `menu_entry` to the [site navigation bar](https://bookdown.org/yihui/rmarkdown/rmarkdown-site.html#site-navigation).
 
-The way metadata, especially the `content`, are used to produce the resulting page depends on the specified `template`. Templates might in general make use of additional specific metadata fields, which can also be used for additional content included in the custom site [configuration](#config).
+The way metadata, especially the `content`, are used to produce the resulting page depends on the specified `template`. Templates might in general make use of additional specific metadata fields, which can also be used for additional content included in the custom site [configuration](#configuration-and-customization).
 
 The predefined templates provided by **rmdgallery** are described next.
 
@@ -89,7 +89,7 @@ Embed the HTML code defined in the `content` field of the metadata. This can be 
 Embed based on JavaScript, using `<script src={{content}}>`, where `{{content}}` is the URL of a `.js` script. This is a special case of `embed-html`, useful e.g. for embedding a GitHub [gist](https://help.github.com/en/github/writing-on-github/editing-and-sharing-content-with-gists).
 
 
-### Configuration and customization {#config}
+### Configuration and customization
 
 Configuration and customization of the website specific to `rmdgallery::gallery_site_generator` are defined by adding a `gallery:` field to the standard `_site.yml` configuration file. The following examples describe the available options:
 
