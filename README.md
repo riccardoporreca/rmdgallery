@@ -48,13 +48,13 @@ The metadata for each page to be included in the website are defined in JSON fil
 {
   "foo": {
     "title": "Embed raw html content",
-    "menu_entry": "HTML example"
+    "menu_entry": "HTML example",
     "template": "embed-html",
     "content": "<h3>Hello Rmd Gallery</h3>",
   },
   "bar": {
     "title": "Embed content from an external URL",
-    "menu_entry": "URL example"
+    "menu_entry": "URL example",
     "template": "embed-url",
     "content": "https://example.com"
   }
