@@ -12,11 +12,9 @@
 gallery_site <- function(input, ...) {
 
   # get the site config
-  config <- rmarkdown::site_config(input)
+  config <- gallery_site_config(input)
   if (is.null(config))
     stop("No site configuration (_site.yml) file found.")
-
-  config$meta <- config$meta %||% "meta"
 
   # helper function to get all input files. includes all .Rmd and
   # .md files that don't start with "_" (note that we don't do this
@@ -34,22 +32,19 @@ gallery_site <- function(input, ...) {
     )
     files <- list.files(input, pattern)
     if (is.character(config$autospin)) files <- c(files, config$autospin)
-    files <- files[!grepl("^README\\.R?md$", files)]
-    meta_files <- file.path(config$meta, list.files(file.path(input, config$meta), "[.]json$"))
-    files <- c(files, meta_files)
-    files
+    files[!grepl("^README\\.R?md$", files)]
   }
 
   # helper function constructing the gallery navbar entry
   navbar_with_gallery <- function() {
     if (!is.null(config$gallery$navbar)) {
       gallery_navbar <- config$gallery$navbar
+      meta <- config$gallery$meta
       # must have one element, which is the location, e.g. $left
       stopifnot(length(gallery_navbar) == 1L)
-      meta <- list.files(file.path(input, config$meta), "[.]json$", full.names = TRUE)
-      gallery_links <- file_with_ext(basename(meta), "html")
+      gallery_links <- file_with_ext(names(meta), "html")
       gallery_entry <- vapply(meta, FUN.VALUE = "", function(x) {
-        jsonlite::read_json(x)$menu_entry %||% NA_character_
+        x$menu_entry %||% NA_character_
       })
       has_entry <- !is.na(gallery_entry)
       duplicated <- duplicated(gallery_entry[has_entry])
@@ -102,6 +97,8 @@ gallery_site <- function(input, ...) {
     else {
       files <- file.path(input, input_files())
     }
+    files <- c(files, file_with_ext(names(config$gallery$meta), "meta"))
+
     sapply(files, function(x) {
       render_one <- if (isTRUE(config$new_session)) {
         render_new_session
@@ -113,14 +110,18 @@ gallery_site <- function(input, ...) {
       output_file <- NULL
       if (!quiet) message("\nRendering: ", x)
 
-      if (tools::file_ext(x) == "json") {
-        meta <- read_meta(x)
+      if (tools::file_ext(x) == "meta") {
+        name <- tools::file_path_sans_ext(x)
+        meta <- config$gallery$meta[[name]]
+        if (!quiet) message("\nMetadata from: ", meta$source)
         # gallery config:
         meta$gallery <- if (is.null(config$gallery)) list() else config$gallery
-        output_file <- file.path(input, file_with_ext(basename(x), "html"))
-        if (!quiet) message("\nRendering to: ", output_file)
-        x <- file.path(input, file_with_ext(sprintf(".tmp_%s", basename(x)), "Rmd"))
-        rmd_content <- from_template(meta)
+        output_file <- file.path(input, file_with_ext(name, "html"))
+        x <- file.path(input, file_with_ext(sprintf(".tmp_%s", name), "Rmd"))
+        template_dir <- if (!is.null(config$gallery$template_dir)) {
+          file.path(input, config$gallery$template_dir)
+        }
+        rmd_content <- from_template(meta, template_dir)
         knit_params <- attr(rmd_content, "params")
         writeLines(rmd_content, x)
         on.exit(unlink(x))
