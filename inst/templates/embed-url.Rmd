@@ -17,7 +17,7 @@ rmdgallery::gallery_content(
     )
   ),
   htmltools::tags$iframe(
-    id = "gallery-iframe", src = params$content, scrolling = "no", frameborder = "0",
+    id = "gallery-iframe", src = params$content, frameborder = "0",
     style = do.call(htmltools::css, c(list("min-width" = "100%"), params$css))
   ),
   htmltools::tags$script(
