@@ -34,7 +34,7 @@ The provided `rmdgallery::gallery_site` function (or it alias `rmdgallery::galle
 ```yaml
 ---
 title: "My Website"
-site: rmdgallery::gallery_site_generator
+site: rmdgallery::gallery_site
 ---
 ```
 
