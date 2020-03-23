@@ -50,7 +50,7 @@ The metadata for each page to be included in the website are defined in JSON fil
     "title": "Embed raw html content",
     "menu_entry": "HTML example",
     "template": "embed-html",
-    "content": "<h3>Hello Rmd Gallery</h3>",
+    "content": "<h3>Hello Rmd Gallery</h3>"
   },
   "bar": {
     "title": "Embed content from an external URL",
