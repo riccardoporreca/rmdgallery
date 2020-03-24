@@ -2,14 +2,16 @@
 title: {{title}}
 params:
   content: NULL
-  gallery: NULL
+  gallery_config: NULL
+  class: NULL
   css: NULL
   iframeresizer_ver: "4.2.1"
 ---
 
 ```{r, echo = FALSE}
 rmdgallery::gallery_content(
-  before = params$gallery$include_before,
+  class = c("gallery-embed-url", params$class),
+  gallery_config = params$gallery_config,
   htmltools::tags$script(
     src = sprintf(
       "https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/%s/iframeResizer.min.js",
@@ -29,8 +31,6 @@ rmdgallery::gallery_content(
          },
          '#gallery-iframe'
        );"
-  ),
-  after = params$gallery$include_after,
-  class = "gallery-embed-url"
+  )
 )
 ```

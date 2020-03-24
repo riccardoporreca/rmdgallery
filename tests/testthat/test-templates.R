@@ -1,5 +1,5 @@
 common_meta <- list(
-  gallery = list(
+  gallery_config = list(
     include_before = '<hr><a href="https://example.com">before - Author: {{author}}</a><hr/>',
     include_after = '{{htmltools::tagList(htmltools::hr(), "after -", title, htmltools::hr())}}'
   ),

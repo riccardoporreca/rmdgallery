@@ -4,25 +4,47 @@
 \alias{gallery_content}
 \title{Gallery page content}
 \usage{
-gallery_content(..., before = NULL, after = NULL, class = NULL)
+gallery_content(..., gallery_config = NULL, class = NULL)
 }
 \arguments{
-\item{...}{Unnamed items included in the main \verb{<div>}}
+\item{...}{Unnamed items defining the main content of the page.}
 
-\item{before, after}{The content of the \verb{<div>} before and after
-the main. If character, the value is wrapped inside \code{\link[htmltools:HTML]{htmltools::HTML()}}.}
+\item{gallery_config}{The gallery site configuration. Elements
+\verb{$include_before} and \verb{$include_after} (if present) are included before and
+after the main content. If character, their value is wrapped inside
+\code{\link[htmltools:HTML]{htmltools::HTML()}}.}
 
-\item{class}{Character vector of custom classes.}
+\item{class}{Character vector of custom classes, added to
+\code{"gallery-container"}.}
 }
 \value{
-An HTML tag object that can be rendered as HTML using
-  \code{\link{as.character}()}.
+The function constructs and returns the page content as a parent
+\code{\link[htmltools:div]{htmltools::div()}} HTML tag object with class \code{"gallery-container"} with
+three \code{div()} children.
+\itemize{
+\item One containing \code{gallery_config$include_before} (if present), with class
+\code{"gallery-before"}.
+\item One wrapping the main content items \code{...} via \code{\link[htmltools:tagList]{htmltools::tagList()}}
+content, with class \code{"gallery-main"}.
+\item One containing \code{gallery_config$include_after} (if present), with class
+\code{"gallery-after"}, and are wrapped in a parent \verb{<div>} with class
+}
+
+The returned value can be rendered as HTML using \code{as.character()}.
 }
 \description{
-Create the content of a gallery page, comprising three \verb{<div>} elements: one
-initial wrapping around \code{before}, one main comprising the arbitrary
-\code{htmltools::tagList(...)}, and one final wrapping around \code{after}. The three
-elements have custom classes \code{"gallery-before"}, \code{"gallery-main"},
-\code{"gallery-after"}, and are wrapped in a parent \verb{<div>} with class
-\code{"gallery-container"} class plus the provided custom \code{class}.
+Create the content of a gallery page based on arbitrary page content and
+gallery configuration.
+}
+\examples{
+gallery_content(
+  htmltools::h2("Hello world"),
+  "Welcome to the callery content world",
+  gallery_config = list(
+    include_before = "before<hr/>",
+    include_after = htmltools::tagList(htmltools::hr(), "after")
+  ),
+  class = "hello-gallery-content"
+)
+
 }

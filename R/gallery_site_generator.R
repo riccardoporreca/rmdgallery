@@ -115,7 +115,7 @@ gallery_site <- function(input, ...) {
         meta <- config$gallery$meta[[name]]
         if (!quiet) message("\nMetadata from: ", meta$source)
         # gallery config:
-        meta$gallery <- if (is.null(config$gallery)) list() else config$gallery
+        meta$gallery_config <- if (is.null(config$gallery)) list() else config$gallery
         output_file <- file.path(input, file_with_ext(name, "html"))
         x <- file.path(input, file_with_ext(sprintf(".tmp_%s", name), "Rmd"))
         template_dir <- if (!is.null(config$gallery$template_dir)) {

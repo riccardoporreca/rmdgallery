@@ -2,14 +2,14 @@
 title: {{title}}
 params:
   content: NULL
-  gallery: NULL
+  gallery_config: NULL
+  class: NULL
 ---
 
 ```{r, echo = FALSE}
 rmdgallery::gallery_content(
-  before = params$gallery$include_before,
-  htmltools::tags$script(src = params$content),
-  after = params$gallery$include_after,
-  class = "gallery-embed-script"
+  class = c("gallery-embed-script", params$class),
+  gallery_config = params$gallery_config,
+  htmltools::tags$script(src = params$content)
 )
 ```

@@ -14,28 +14,50 @@ gallery_div <- function(class, content) {
 
 #' Gallery page content
 #'
-#' Create the content of a gallery page, comprising three `<div>` elements: one
-#' initial wrapping around `before`, one main comprising the arbitrary
-#' `htmltools::tagList(...)`, and one final wrapping around `after`. The three
-#' elements have custom classes `"gallery-before"`, `"gallery-main"`,
+#' Create the content of a gallery page based on arbitrary page content and
+#' gallery configuration.
+#'
+#'
+#' @param ... Unnamed items defining the main content of the page.
+#' @param gallery_config The gallery site configuration. Elements
+#'   `$include_before` and `$include_after` (if present) are included before and
+#'   after the main content. If character, their value is wrapped inside
+#'   [htmltools::HTML()].
+#' @param class Character vector of custom classes, added to
+#'   `"gallery-container"`.
+#'
+#' @return
+#'
+#' The function constructs and returns the page content as a parent
+#' [htmltools::div()] HTML tag object with class `"gallery-container"` with
+#' three `div()` children.
+#' - One containing `gallery_config$include_before` (if present), with class
+#' `"gallery-before"`.
+#' - One wrapping the main content items `...` via [htmltools::tagList()]
+#' content, with class `"gallery-main"`.
+#' - One containing `gallery_config$include_after` (if present), with class
 #' `"gallery-after"`, and are wrapped in a parent `<div>` with class
-#' `"gallery-container"` class plus the provided custom `class`.
 #'
-#' @param ... Unnamed items included in the main `<div>`
-#' @param before,after The content of the `<div>` before and after
-#'   the main. If character, the value is wrapped inside [htmltools::HTML()].
-#' @param class Character vector of custom classes.
+#' The returned value can be rendered as HTML using `as.character()`.
 #'
-#'
-#' @inherit htmltools::tagList return
+#' @examples
+#' gallery_content(
+#'   htmltools::h2("Hello world"),
+#'   "Welcome to the callery content world",
+#'   gallery_config = list(
+#'     include_before = "before<hr/>",
+#'     include_after = htmltools::tagList(htmltools::hr(), "after")
+#'   ),
+#'   class = "hello-gallery-content"
+#' )
 #'
 #' @export
-gallery_content <- function(..., before = NULL, after = NULL, class = NULL) {
+gallery_content <- function(..., gallery_config = NULL, class = NULL) {
   htmltools::div(
     class = paste(c("gallery-container", class), collapse = " "),
     gallery_div(
       class = "gallery-before",
-      before
+      gallery_config$include_before
     ),
     gallery_div(
       class = "gallery-main",
@@ -43,13 +65,13 @@ gallery_content <- function(..., before = NULL, after = NULL, class = NULL) {
     ),
     gallery_div(
       class = "gallery-after",
-      after
+      gallery_config$include_after
     )
   )
 }
 
 
-fill <- function(with, x) {
+fill <- function(x, with) {
   y <- glue::glue_data(
     with,
     x,
@@ -60,13 +82,15 @@ fill <- function(with, x) {
 }
 
 fill_template <- function(meta, template) {
-  if (length(meta$gallery$include_before) > 0L) {
-    meta$gallery$include_before <- fill(meta, meta$gallery$include_before)
+  if (length(meta$gallery_config$include_before) > 0L) {
+    meta$gallery_config$include_before <-
+      fill(meta$gallery_config$include_before, meta)
   }
-  if (length(meta$gallery$include_after) > 0L) {
-    meta$gallery$include_after <- fill(meta, meta$gallery$include_after)
+  if (length(meta$gallery_config$include_after) > 0L) {
+    meta$gallery_config$include_after <-
+      fill(meta$gallery_config$include_after, meta)
   }
-  filled <- fill(meta, paste(template, collapse = "\n"))
+  filled <- fill(paste(template, collapse = "\n"), meta)
   knit_params <- names(knitr::knit_params(filled, evaluate = FALSE))
   attr(filled, "params") <- meta[names(meta) %in% knit_params]
   filled
