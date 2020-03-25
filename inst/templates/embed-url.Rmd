@@ -5,32 +5,38 @@ params:
   gallery_config: NULL
   class: NULL
   css: NULL
-  iframeresizer_ver: "4.2.1"
+  iframe_resizer: "4.2.1"
 ---
 
 ```{r, echo = FALSE}
 rmdgallery::gallery_content(
   class = c("gallery-embed-url", params$class),
   gallery_config = params$gallery_config,
-  htmltools::tags$script(
-    src = sprintf(
-      "https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/%s/iframeResizer.min.js",
-      params$iframeresizer_ver
+  if (!isFALSE(params$iframe_resizer)) {
+    htmltools::tags$script(
+      src = sprintf(
+        "https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/%s/iframeResizer.min.js",
+        params$iframe_resizer
+      )
     )
-  ),
+  },
   htmltools::tags$iframe(
     id = "gallery-iframe", src = params$content, frameborder = "0",
     style = do.call(htmltools::css, c(list("min-width" = "100%"), params$css))
   ),
-  htmltools::tags$script(
-    "iFrameResize(
+  if (!isFALSE(params$iframe_resizer)) {
+    htmltools::tags$script(
+      "iFrameResize(
          {
            /* Options https://github.com/davidjbradshaw/iframe-resizer#api-documentation */
            // Do not check the origin, since we embed from arbitrary domains
-           checkOrigin: false
+           checkOrigin: false,
+           // Avoid setting the scrolling attribute as we may have responsive and non-responsive content
+           scrolling: 'omit'
          },
          '#gallery-iframe'
        );"
-  )
+    )
+  }
 )
 ```
