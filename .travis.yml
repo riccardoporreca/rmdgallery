@@ -3,13 +3,12 @@
 language: R
 cache: packages
 
-before_cache: Rscript -e 'remotes::install_dev("pkgdown")'
+before_cache: Rscript -e 'install.packages("pkgdown")'
 before_deploy: Rscript -e 'pkgdown::build_site()'
 deploy:
   provider: pages
-  skip_cleanup: true
   github_token: $GITHUB_PAT  # Set in the settings page of your repository, as a secure variable
   local_dir: docs
   cleanup: true
   on:
-    branch: feature/pkgdown
+    branch: feature/pkgdown-travis
