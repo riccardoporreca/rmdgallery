@@ -1,13 +1,14 @@
 Package: rmdgallery
 Title: R Markdown Website Gallery Generator
-Version: 0.0.0.9000
+Version: 0.1.0
 Authors@R: 
     person(given = "Riccardo",
            family = "Porreca",
            role = c("aut", "cre"),
            email = "riccardo.porreca@mirai-solutions.com")
-Description: Provide an R Markdown website generator to build a website including a gallery of (embedded) pages created
-    in a dynamic way based on metadata in JSON format.
+Description: Provide an R Markdown website generator to build a website 
+    including a gallery of (embedded) pages created in a dynamic way based on
+    metadata in JSON format.
 License: GPL-3
 URL: https://github.com/riccardoporreca/rmdgallery
 BugReports: https://github.com/riccardoporreca/rmdgallery/issues
