@@ -3,6 +3,7 @@
 
 <!-- badges: start -->
 [![R build status](https://github.com/riccardoporreca/rmdgallery/workflows/R-CMD-check/badge.svg)](https://github.com/riccardoporreca/rmdgallery/actions)
+[![Travis build status](https://travis-ci.com/riccardoporreca/rmdgallery.svg?branch=master)](https://travis-ci.com/riccardoporreca/rmdgallery)
 <!-- badges: end -->
 
 The goal of **rmdgallery** is to provide an R Markdown [site generator](https://bookdown.org/yihui/rmarkdown/rmarkdown-site.html#custom-site-generators) that supports the inclusion of a gallery of (embedded) pages created in a dynamic way based on metadata in JSON format.
@@ -146,7 +147,7 @@ The templates provided within the package can be seen under 'inst/templates' in 
 
 ### CSS customization
 
-The content of gallery pages constructed using the provided templates (or any custom template making use of `rmdgallery::gallery_content()`) have the following general structure (see also `help(rmdgallery::gallery_content)`)
+The content of gallery pages constructed using the provided templates (or any custom template making use of `rmdgallery::gallery_content()`) have the following general structure (see also `?rmdgallery::gallery_content`)
 ```html
 <div class="gallery-container {template/metadata-specific classes}">
   <div class="gallery-before">{include_before}</div>
