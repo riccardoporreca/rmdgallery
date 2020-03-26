@@ -147,7 +147,7 @@ The templates provided within the package can be seen under 'inst/templates' in 
 
 ### CSS customization
 
-The content of gallery pages constructed using the provided templates (or any custom template making use of `rmdgallery::gallery_content()`) have the following general structure (see also `help(rmdgallery::gallery_content)`)
+The content of gallery pages constructed using the provided templates (or any custom template making use of `rmdgallery::gallery_content()`) have the following general structure (see also `?rmdgallery::gallery_content`)
 ```html
 <div class="gallery-container {template/metadata-specific classes}">
   <div class="gallery-before">{include_before}</div>
