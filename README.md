@@ -3,6 +3,7 @@
 
 <!-- badges: start -->
 [![R build status](https://github.com/riccardoporreca/rmdgallery/workflows/R-CMD-check/badge.svg)](https://github.com/riccardoporreca/rmdgallery/actions)
+[![Travis build status](https://travis-ci.com/riccardoporreca/rmdgallery.svg?branch=master)](https://travis-ci.com/riccardoporreca/rmdgallery)
 <!-- badges: end -->
 
 The goal of **rmdgallery** is to provide an R Markdown [site generator](https://bookdown.org/yihui/rmarkdown/rmarkdown-site.html#custom-site-generators) that supports the inclusion of a gallery of (embedded) pages created in a dynamic way based on metadata in JSON format.
