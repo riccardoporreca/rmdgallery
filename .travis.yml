@@ -9,6 +9,5 @@ deploy:
   provider: pages
   github_token: $GITHUB_PAT  # Set in the settings page of your repository, as a secure variable
   local_dir: docs
-  cleanup: true
   on:
     branch: feature/pkgdown-travis
