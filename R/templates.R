@@ -17,7 +17,6 @@ gallery_div <- function(class, content) {
 #' Create the content of a gallery page based on arbitrary page content and
 #' gallery configuration.
 #'
-#'
 #' @param ... Unnamed items defining the main content of the page.
 #' @param gallery_config The gallery site configuration. Elements
 #'   `$include_before` and `$include_after` (if present) are included before and
@@ -43,12 +42,12 @@ gallery_div <- function(class, content) {
 #' @examples
 #' gallery_content(
 #'   htmltools::h2("Hello world"),
-#'   "Welcome to the callery content world",
+#'   "Welcome to the gallery content world",
 #'   gallery_config = list(
 #'     include_before = "before<hr/>",
 #'     include_after = htmltools::tagList(htmltools::hr(), "after")
 #'   ),
-#'   class = "hello-gallery-content"
+#'   class = "hello-gallery"
 #' )
 #'
 #' @export

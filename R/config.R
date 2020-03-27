@@ -1,3 +1,5 @@
+#' Gallery site configuration
+#'
 #' Site configuration for the [gallery_site()] generator.
 #'
 #' @inheritParams rmarkdown::site_config

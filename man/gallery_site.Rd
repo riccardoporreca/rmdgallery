@@ -3,7 +3,7 @@
 \name{gallery_site}
 \alias{gallery_site}
 \alias{gallery_site_generator}
-\title{Gallery website generator.}
+\title{Gallery website generator}
 \usage{
 gallery_site(input, ...)
 
@@ -15,7 +15,10 @@ gallery_site_generator(input, ...)
 \item{...}{Currently unused.}
 }
 \description{
-Gallery website generator.
+Define a custom website generator to be used with \code{\link[rmarkdown:render_site]{rmarkdown::render_site()}}.
+This generates a simple R Markdown website including a gallery of pages with
+embedded content, based on metadata in JSON format and custom site
+configuration options.
 }
 \details{
 See \code{\link[rmarkdown:default_site_generator]{rmarkdown::default_site_generator()}}, from which the

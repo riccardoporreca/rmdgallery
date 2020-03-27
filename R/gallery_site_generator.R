@@ -1,7 +1,12 @@
 # rmarkdown/R/render_site.R ----
 # https://github.com/rstudio/rmarkdown/blob/947b87259333b43f47b5f59e91dc9a1ea10d1c4d/R/render_site.R
 
-#' Gallery website generator.
+#' Gallery website generator
+#'
+#' Define a custom website generator to be used with [rmarkdown::render_site()].
+#' This generates a simple R Markdown website including a gallery of pages with
+#' embedded content, based on metadata in JSON format and custom site
+#' configuration options.
 #'
 #' @inheritParams rmarkdown::default_site_generator
 #'

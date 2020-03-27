@@ -39,12 +39,12 @@ gallery configuration.
 \examples{
 gallery_content(
   htmltools::h2("Hello world"),
-  "Welcome to the callery content world",
+  "Welcome to the gallery content world",
   gallery_config = list(
     include_before = "before<hr/>",
     include_after = htmltools::tagList(htmltools::hr(), "after")
   ),
-  class = "hello-gallery-content"
+  class = "hello-gallery"
 )
 
 }

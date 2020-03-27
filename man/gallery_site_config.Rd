@@ -2,7 +2,7 @@
 % Please edit documentation in R/config.R
 \name{gallery_site_config}
 \alias{gallery_site_config}
-\title{Site configuration for the \code{\link[=gallery_site]{gallery_site()}} generator.}
+\title{Gallery site configuration}
 \usage{
 gallery_site_config(input = ".")
 }
