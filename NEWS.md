@@ -1,5 +1,7 @@
 # rmdgallery (development version)
 
+- Metadata in YAML format are now also supported (#2).
+
 # rmdgallery 0.1.0
 
 ## First versioned release
