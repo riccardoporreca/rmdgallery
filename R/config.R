@@ -6,7 +6,8 @@
 #'
 #' @return The function returns the contents of `_site.yml` as an \R list, with
 #'   an additional element `$gallery$meta`, a list containing the metadata of
-#'   the pages to be generated, as read from the `.json` file.
+#'   the pages to be generated, as read from the `.json`, `.yml` and `yaml`
+#'   files.
 #'
 #' @export
 gallery_site_config <- function(input = ".") {

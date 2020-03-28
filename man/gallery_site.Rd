@@ -17,7 +17,7 @@ gallery_site_generator(input, ...)
 \description{
 Define a custom website generator to be used with \code{\link[rmarkdown:render_site]{rmarkdown::render_site()}}.
 This generates a simple R Markdown website including a gallery of pages with
-embedded content, based on metadata in JSON format and custom site
+embedded content, based on metadata in JSON or YAML format and custom site
 configuration options.
 }
 \details{
