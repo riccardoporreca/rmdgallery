@@ -55,10 +55,10 @@ test_that("Metadata are correctly extracted from metadata files", {
   file_1 <- .write_meta(meta_1, file.path(tempdir(), "meta.json"))
   file_2 <- .write_meta(meta_2, file.path(tempdir(), "meta.yml"))
   all_meta <- read_meta(c(file_1, file_2))
-  # include tha file path as "source"
+  # include tha file path as ".meta_file"
   expected <- c(
-    lapply(meta_1, c, list(source = "meta.json")),
-    lapply(meta_2, c, list(source = "meta.yml"))
+    lapply(meta_1, c, list(.meta_file = "meta.json")),
+    lapply(meta_2, c, list(.meta_file = "meta.yml"))
   )
   expect_identical(all_meta, expected)
 })
@@ -69,10 +69,10 @@ test_that("Metadata are correctly extracted from single_meta files", {
   file_1 <- .write_meta(meta_1, file.path(tempdir(), "meta_1.json"))
   file_2 <- .write_meta(meta_2, file.path(tempdir(), "meta_2.yml"))
   all_meta <- read_meta(c(file_1, file_2), single = TRUE)
-  # include tha file path as "source"
+  # include tha file path as ".meta_file"
   expected <- list(
-    meta_1 = c(meta_1, list(source = "meta_1.json")),
-    meta_2 = c(meta_2, list(source = "meta_2.yml"))
+    meta_1 = c(meta_1, list(.meta_file = "meta_1.json")),
+    meta_2 = c(meta_2, list(.meta_file = "meta_2.yml"))
   )
   expect_identical(all_meta, expected)
 })

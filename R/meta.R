@@ -25,10 +25,7 @@ read_meta <- function(files, single = FALSE) {
         meta <- list(meta)
         names(meta) <- tools::file_path_sans_ext(basename(file))
       }
-      meta <- lapply(meta, function(x) {
-        x$source <- basename(file)
-        x
-      })
+      meta <- lapply(meta, c, list(.meta_file = basename(file)))
       meta
     })
   )

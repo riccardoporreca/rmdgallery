@@ -118,7 +118,7 @@ gallery_site <- function(input, ...) {
       if (tools::file_ext(x) == "meta") {
         name <- tools::file_path_sans_ext(x)
         meta <- config$gallery$meta[[name]]
-        if (!quiet) message("\nMetadata from: ", meta$source)
+        if (!quiet) message("\nMetadata from: ", meta$.meta_file)
         # gallery config:
         meta$gallery_config <- if (is.null(config$gallery)) list() else config$gallery
         output_file <- file.path(input, file_with_ext(name, "html"))
