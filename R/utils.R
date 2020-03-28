@@ -7,3 +7,7 @@
 render_time_utils <- list(
   `%||%` = `%||%`
 )
+
+toQuotedString <- function(x) {
+  toString(sQuote(x, q = FALSE))
+}

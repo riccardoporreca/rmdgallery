@@ -105,7 +105,7 @@ find_template <- function(template, paths = character(0)) {
     }
   }
   if (is.null(template_file)) {
-    stop("No template found for ", sQuote(template), " in ", toString(sQuote(paths)))
+    stop("No template found for ", toQuotedString(template), " in ", toQuotedString(paths))
   }
   template_file
 }

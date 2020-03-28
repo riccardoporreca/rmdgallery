@@ -56,7 +56,7 @@ gallery_site <- function(input, ...) {
       if (any(duplicated)) {
         stop(
           "Found duplicate navbar menu entries: ",
-          toString(sQuote(gallery_entry[has_entry][duplicated])))
+          toQuotedString(gallery_entry[has_entry][duplicated]))
       }
       gallery_navbar[[1L]][[1]]$menu <- mapply(
         SIMPLIFY = FALSE, USE.NAMES = FALSE,

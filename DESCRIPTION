@@ -20,7 +20,8 @@ Imports:
     htmltools,
     jsonlite,
     knitr,
-    rmarkdown
+    rmarkdown,
+    yaml
 Suggests: 
     testthat (>= 2.1.0)
 Roxygen: list(markdown = TRUE)
