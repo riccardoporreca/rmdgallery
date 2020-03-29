@@ -7,8 +7,9 @@
 #' @return The function returns the contents of `_site.yml` as an \R list, with
 #'   an additional element `$gallery$meta`, a list containing the metadata of
 #'   the pages to be generated, as read from the `.json`, `.yml` and `yaml`
-#'   files, where `$gallery$type_field` and `gallery$type_template` have been
-#'   already used to lookup the actual `template`.
+#'   files, where `$gallery$type_field` and `gallery$type_template` (if present)
+#'   have been already used to lookup the actual `template`. In addition,
+#'   default field values specified as `gallery$defaults` are also applied.
 #'
 #' @export
 gallery_site_config <- function(input = ".") {
@@ -19,6 +20,7 @@ gallery_site_config <- function(input = ".") {
     meta_files <- site_meta_files(file.path(input, meta_dir))
     meta <- read_meta(meta_files, single_meta)
     meta <- with_type_template(meta, config$gallery)
+    meta <- with_defaults(meta, config$gallery)
     check_missing_template(meta)
     config$gallery$meta <- meta
   }
@@ -61,6 +63,16 @@ get_type_template <- function(type, type_templates) {
   )
 }
 
+with_defaults <- function(meta, gallery_config) {
+  default_fields <- names(gallery_config$defaults)
+  for (field in default_fields) {
+    values <- get_meta_field(meta, field)
+    values <- values %|NA|% gallery_config$defaults[[field]]
+    meta <- set_meta_field(meta, field, values)
+  }
+  meta
+}
+
 check_missing_template <- function(meta) {
   miss_template <- is.na(get_meta_field(meta, "template"))
   if (any(miss_template)) {
@@ -71,3 +83,4 @@ check_missing_template <- function(meta) {
   }
   invisible(meta)
 }
+

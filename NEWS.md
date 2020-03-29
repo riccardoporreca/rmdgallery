@@ -2,6 +2,7 @@
 
 - Metadata in YAML format are now also supported (#2).
 - Custom _page types_ are now supported as an alternative to the `template` field of the metadata. Page types are defined and mapped to actual templates in the `gallery` site configuration, using new fields `type_field` and `type_template` (#4).
+- Default values for unspecified fields in the metadata can now be defined using the new `defaults` field in the `gallery` site configuration (#3).
 
 # rmdgallery 0.1.0
 

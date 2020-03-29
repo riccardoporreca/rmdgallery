@@ -127,5 +127,17 @@ test_that("Setting a metadata field works", {
     set_meta_field(meta, "foo", c("a", NA_character_, "c")),
     Map(`[[<-`, meta, "foo", list("a", NULL, "c"))
   )
+})
 
+test_that("Get/set round-trip does not alter metadata", {
+  meta <- list(
+    a = list(foo = "A"),
+    b = list(foo = "B"),
+    c = list(bar = "C"),
+    d = list(foo = "D")
+  )
+  expect_identical(
+    set_meta_field(meta, "foo", get_meta_field(meta, "foo")),
+    meta
+  )
 })
