@@ -84,7 +84,8 @@ test_that("Duplicated names are detected across different files", {
   file_2 <- .write_meta(meta_2, file.path(tempdir(), "meta.yml"))
   expect_error(
     read_meta(c(file_1, file_2)),
-    paste("duplicate", toQuotedString(c("b", "a")), sep = ".*"), ignore.case = TRUE
+    glob2rx(paste("*duplicate*metadata:", toQuotedString(c("b", "a")))),
+    ignore.case = TRUE
   )
 })
 
@@ -95,6 +96,36 @@ test_that("Duplicated names are detected across single_meta files", {
   file_2 <- .write_meta(meta_2, file.path(tempdir(), "meta.yml"))
   expect_error(
     read_meta(c(file_1, file_2), single = TRUE),
-    paste("duplicate", toQuotedString("meta"), sep = ".*"), ignore.case = TRUE
+    glob2rx(paste("*duplicate*metadata:", toQuotedString("meta"))),
+    ignore.case = TRUE
   )
+})
+
+meta <- list(
+  a = list(foo = "foo", bar = "bar", dummy = "dummy"),
+  b = list(foo = "ofo", dummy = "dummy"),
+  c = list(foo = "oof", bar = "bar", dummy = "dummy")
+)
+
+test_that("Extracting a metadata field works", {
+  expect_identical(
+    get_meta_field(meta, "foo"),
+    c(a = "foo", b = "ofo", c = "oof")
+  )
+  expect_identical(
+    get_meta_field(meta, "bar"),
+    c(a = "bar", b = NA_character_, c = "bar")
+  )
+})
+
+test_that("Setting a metadata field works", {
+  expect_identical(
+    set_meta_field(meta, "bar", letters[3:1]),
+    Map(`[[<-`, meta, "bar", letters[3:1])
+  )
+  expect_identical(
+    set_meta_field(meta, "foo", c("a", NA_character_, "c")),
+    Map(`[[<-`, meta, "foo", list("a", NULL, "c"))
+  )
+
 })
