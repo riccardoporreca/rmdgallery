@@ -33,6 +33,13 @@ test_that("Setting templates by type errors if templates are missing for certain
   )
 })
 
+test_that("Setting templates by type handles no type_field", {
+  expect_identical(
+    with_type_template(meta, list()),
+    meta
+  )
+})
+
 test_that("Setting defaults works", {
   defaults <- list(
     template = "def_tpl", # partly-specified field
