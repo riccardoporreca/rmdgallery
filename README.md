@@ -98,7 +98,7 @@ This approach can be particularly useful for galleries with user-contributed pag
 
 ### Configuration and customization
 
-Configuration and customization of the website specific to `rmdgallery::gallery_site_generator` are defined by adding a `gallery:` field to the standard `_site.yml` configuration file. The following examples describe the available options:
+Configuration and customization of the website specific to `rmdgallery::gallery_site_generator` are defined by adding a `gallery:` field to the standard `_site.yml` configuration file. The following example describes the available options:
 
 ``` yaml
 name: "my-website"
@@ -115,6 +115,8 @@ gallery:
   type_template:
     type_1: embed-url
     type_2: embed-html
+  defaults:
+    template: embed-url
   navbar:
     left:
       - text: "Gallery"
@@ -133,6 +135,7 @@ gallery:
 - `single_meta:` Optional `true` or `false` defining whether the files define metadata for individual pages, in which case e.g. a file `foo.json` would contain only the metadata for the `foo.html` page. Defaults to `false` if not specified.
 - `template_dir:` Optional location of additional custom templates.
 - `type_field:`, `type_template:` Optional fields defining custom page _types_ (see ['Page types'](#page-types) above).
+- `defaults:` Optional list of default values for unspecified metadata fields.
 - `navbar:` The gallery navigation menu to be included in the standard `navbar:` of `_site.yml`. The menu is populated with the `menu_entry` of each page from the metadata. Can be omitted if no such menu should be included.
 - `include_before:`, `include_after:` Custom content to be included before and after the main `content`. Both are included for each page and may be defined in terms of fields from the metadata via using `{{...}}`. Such placeholders are then processed using `glue::glue_data(meta)`, where `meta` is the list of metadata for a given page. This allows to use simple string replacements of raw HTML code (like in `include_before:` in the example) or R expression constructing HTML elements via [**htmltools**](https://cran.r-project.org/package=htmltools) (like in `include_after:`).
 
