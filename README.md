@@ -46,22 +46,19 @@ Below we describe how the **_metadata_** for multiple pages are defined and used
 
 At the core of **rmdgallery** are R Markdown templates for the pages to be included in the website, containing placeholders for metadata. The details behind how templates define and make use of metadata are covered in section ['Custom templates'](#custom-templates) below.
 
-The specific metadata of each individual page are defined in JSON (`.json`) or YAML (`.yml`, `.yaml`) file(s) in the `meta` directory of the website project. For example, the following JSON (or an analogous YAML)
-``` json
-{
-  "foo": {
-    "title": "Embed raw html content",
-    "menu_entry": "HTML example",
-    "template": "embed-html",
-    "content": "<h3>Hello Rmd Gallery</h3>"
-  },
-  "bar": {
-    "title": "Embed content from an external URL",
-    "menu_entry": "URL example",
-    "template": "embed-url",
-    "content": "https://example.com"
-  }
-}
+The specific metadata of each individual page are defined in JSON (`.json`) or YAML (`.yml`, `.yaml`) file(s) in the `meta` directory of the website project. For example, the following YAML (or an analogous JSON)
+``` yaml
+foo: 
+  title: Embed raw html content
+  menu_entry: HTML example
+  template: embed-html
+  content: <h3>Hello Rmd Gallery</h3>
+
+bar: 
+  title: Embed content from an external URL
+  menu_entry: URL example
+  template: embed-url
+  content: https://example.com
 ```
 defines the metadata for pages rendered as `foo.html` and `bar.html` with the given page `title`, also adding the specified `menu_entry` to the [site navigation bar](https://bookdown.org/yihui/rmarkdown/rmarkdown-site.html#site-navigation).
 
@@ -71,14 +68,16 @@ The predefined templates provided by **rmdgallery** are described next.
 
 #### `"template": "embed-url"`
 
-Embed a page given its URL, using `<ifame src={{content}}>`, where `{{content}}` is the embedded page URL specified as `content` in the metadata. In addition, an optional `css` field in the metadata allows to fine-tune the CSS style of the `<iframe>`. In particular, `height` can be useful for defining the height (in valid CSS units) of the embedded non-responsive content, as in the following example:
+Embed a page given its URL, using `<ifame src={{content}}>`, where `{{content}}` is the embedded page URL specified as `content` in the metadata. In addition, an optional `css` field in the metadata allows to fine-tune the CSS style of the `<iframe>`. In particular, `height` can be useful for defining the height (in valid CSS units) of the embedded non-responsive content, as in the following JSON example:
 ``` json
 {
-  "title": "My Title",
-  "template": "embed-url",
-  "content": "https://bookdown.org/yihui/rmarkdown",
-  "css": {
-    "height": "80vh"
+  "foo": {
+    "title": "My Title",
+    "template": "embed-url",
+    "content": "https://bookdown.org/yihui/rmarkdown",
+    "css": {
+      "height": "80vh"
+    }
   }
 }
 ```
@@ -91,6 +90,11 @@ Embed the HTML code defined in the `content` field of the metadata. This can be 
 
 Embed based on JavaScript, using `<script src={{content}}>`, where `{{content}}` is the URL of a `.js` script. This is a special case of `embed-html`, useful e.g. for embedding a GitHub [gist](https://help.github.com/en/github/writing-on-github/editing-and-sharing-content-with-gists).
 
+#### Page types
+
+An alternative way to defining a `template` field in the metadata is to use a custom field (e.g., `my_type`) defining the page _type_, and associate its possible custom values to actual templates. This is achieved by defining the `type_field` (e.g., `type_field: my_type`) and the `type_template` list of value-to-template maps (e.g., `type_1: embed-url`) in the `gallery` configuration (see below), so that metadata specifying field `my_type: type_1` (e.g. in YAML format) would be rendered using the `embed-url` template.
+
+This approach can be particularly useful for galleries with user-contributed pages and metadata, where context-specific types (e.g., `type: shiny`) would be more informative than the rather technical `template`.
 
 ### Configuration and customization
 
@@ -107,6 +111,10 @@ gallery:
   meta_dir: "meta"
   single_meta: false
   template_dir: "path/to/cutom/templates"
+  type_field: my_type
+  type_template:
+    type_1: embed-url
+    type_2: embed-html
   navbar:
     left:
       - text: "Gallery"
@@ -124,10 +132,11 @@ gallery:
 - `meta_dir:` Optional name of the directory containing `.json`, `.yml` and `.yaml` metadata files. Defaults to `meta` if not specified.
 - `single_meta:` Optional `true` or `false` defining whether the files define metadata for individual pages, in which case e.g. a file `foo.json` would contain only the metadata for the `foo.html` page. Defaults to `false` if not specified.
 - `template_dir:` Optional location of additional custom templates.
+- `type_field:`, `type_template:` Optional fields defining custom page _types_ (see ['Page types'](#page-types) above).
 - `navbar:` The gallery navigation menu to be included in the standard `navbar:` of `_site.yml`. The menu is populated with the `menu_entry` of each page from the metadata. Can be omitted if no such menu should be included.
-- `include_before:`, `include_after:` Custom content to be included before and after the main `content`. Both are included for each page and may be defined in terms of fields from the metadata via using `{{...}}`. Such placeholders are then processed using `glue::glue_data(meta)`, where `meta` is the list of metadata for a given page. This allows to use simple string replacements of raw HTML code (like in `include_before:` in the example) or R expression constructing HTML elements via [**htmltools**](https://cran.r-project.org/package=htmltools) (like in ``include_after:`).
+- `include_before:`, `include_after:` Custom content to be included before and after the main `content`. Both are included for each page and may be defined in terms of fields from the metadata via using `{{...}}`. Such placeholders are then processed using `glue::glue_data(meta)`, where `meta` is the list of metadata for a given page. This allows to use simple string replacements of raw HTML code (like in `include_before:` in the example) or R expression constructing HTML elements via [**htmltools**](https://cran.r-project.org/package=htmltools) (like in `include_after:`).
 
-You can see the various elements of the configuration in action in the [rmd-gallery-example](https://github.com/riccardoporreca/rmd-gallery-example#readme) GitHub repository
+You can see the various elements of the configuration in action in the [rmd-gallery-example](https://github.com/riccardoporreca/rmd-gallery-example#readme) GitHub repository.
 
 ### Custom templates
 
