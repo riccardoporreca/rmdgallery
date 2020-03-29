@@ -1,5 +1,11 @@
 # rmdgallery (development version)
 
+# rmdgallery 0.2.1
+
+## Patch release
+
+- Fix handling of missing `type_field` in the `gallery` site configuration (#10).
+
 # rmdgallery 0.2.0
 
 ## New features

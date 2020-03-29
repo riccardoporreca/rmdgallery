@@ -27,7 +27,7 @@ gallery_site_config <- function(input = ".") {
   config
 }
 
-with_type_template <- function(meta, gallery_config)(
+with_type_template <- function(meta, gallery_config) {
   if (!is.null(gallery_config$type_field)) {
     meta <- assign_type_template(
       meta,
@@ -35,7 +35,8 @@ with_type_template <- function(meta, gallery_config)(
       gallery_config$type_template
     )
   }
-)
+  meta
+}
 
 assign_type_template <- function(meta, type_field, type_templates) {
   template <- get_meta_field(meta, "template")
