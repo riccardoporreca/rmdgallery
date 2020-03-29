@@ -5,7 +5,7 @@
 #'
 #' Define a custom website generator to be used with [rmarkdown::render_site()].
 #' This generates a simple R Markdown website including a gallery of pages with
-#' embedded content, based on metadata in JSON format and custom site
+#' embedded content, based on metadata in JSON or YAML format and custom site
 #' configuration options.
 #'
 #' @inheritParams rmarkdown::default_site_generator
@@ -56,7 +56,7 @@ gallery_site <- function(input, ...) {
       if (any(duplicated)) {
         stop(
           "Found duplicate navbar menu entries: ",
-          toString(sQuote(gallery_entry[has_entry][duplicated])))
+          toQuotedString(gallery_entry[has_entry][duplicated]))
       }
       gallery_navbar[[1L]][[1]]$menu <- mapply(
         SIMPLIFY = FALSE, USE.NAMES = FALSE,
@@ -118,7 +118,7 @@ gallery_site <- function(input, ...) {
       if (tools::file_ext(x) == "meta") {
         name <- tools::file_path_sans_ext(x)
         meta <- config$gallery$meta[[name]]
-        if (!quiet) message("\nMetadata from: ", meta$source)
+        if (!quiet) message("\nMetadata from: ", meta$.meta_file)
         # gallery config:
         meta$gallery_config <- if (is.null(config$gallery)) list() else config$gallery
         output_file <- file.path(input, file_with_ext(name, "html"))
