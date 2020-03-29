@@ -3,6 +3,9 @@
 language: R
 cache: packages
 
+after_success:
+  - Rscript -e 'covr::codecov()'
+
 before_cache: Rscript -e 'install.packages("pkgdown")'
 before_deploy: Rscript -e 'pkgdown::build_site()'
 deploy:
