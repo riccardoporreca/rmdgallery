@@ -13,7 +13,8 @@ gallery_site_config(input = ".")
 The function returns the contents of \verb{_site.yml} as an \R list, with
 an additional element \verb{$gallery$meta}, a list containing the metadata of
 the pages to be generated, as read from the \code{.json}, \code{.yml} and \code{yaml}
-files.
+files, where \verb{$gallery$type_field} and \code{gallery$type_template} have been
+already used to lookup the actual \code{template}.
 }
 \description{
 Site configuration for the \code{\link[=gallery_site]{gallery_site()}} generator.

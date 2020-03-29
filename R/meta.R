@@ -38,3 +38,20 @@ read_meta <- function(files, single = FALSE) {
   }
   meta
 }
+
+get_meta_field <- function(meta, field, missing_value = NA_character_) {
+  vapply(
+    meta, FUN.VALUE = missing_value,
+    function(x) x[[field]] %||% missing_value
+  )
+}
+
+set_meta_field <- function(meta, field, value) {
+  Map(
+    function(x, value) {
+      x[[field]] <- if (!is.na(value)) value
+      x
+    },
+    meta, value
+  )
+}
