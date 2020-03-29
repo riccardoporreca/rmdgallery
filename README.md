@@ -14,7 +14,7 @@ An example of using **rmdgallery** can can be found in the [rmd-gallery-example]
 
 ## Installation
 
-You can install the **rmdgallery** package from GitHub with:
+You can install the [latest released](https://github.com/riccardoporreca/rmdgallery/releases/latest) version of **rmdgallery** package from GitHub with:
 
 ``` r
 remotes::install_github("riccardoporreca/rmdgallery")
@@ -28,6 +28,12 @@ Remotes:
   riccardoporreca/rmdgallery
 ```
 See e.g. [rmd-gallery-example](https://github.com/riccardoporreca/rmd-gallery-example/blob/master/DESCRIPTION).
+
+If you want to use the development version of the package, it is available from the [`develop`](https://github.com/riccardoporreca/rmdgallery/tree/develop) branch `riccardoporreca/rmdgallery@develop`, which can be used with `remotes::install_github()`
+``` r
+remotes::install_github("riccardoporreca/rmdgallery@develop")
+```
+or in the `Remotes:` field of the `DESCRIPTION` file.
 
 ## Using rmdgallery
 
