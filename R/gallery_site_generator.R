@@ -121,7 +121,8 @@ gallery_site <- function(input, ...) {
         if (!quiet) message("\nMetadata from: ", meta$.meta_file)
         # gallery config:
         meta$gallery_config <- if (is.null(config$gallery)) list() else config$gallery
-        output_file <- file.path(input, file_with_ext(name, "html"))
+        output_file <- name # extension and directory are included by rmarkdown::render
+
         x <- file.path(input, file_with_ext(sprintf(".tmp_%s", name), "Rmd"))
         template_dir <- if (!is.null(config$gallery$template_dir)) {
           file.path(input, config$gallery$template_dir)
@@ -134,9 +135,9 @@ gallery_site <- function(input, ...) {
 
       # make some useful utils available when rendering
       envir <- list2env(render_time_utils, parent = envir)
-
       output <- render_one(input = x,
-                           output_format = output_format, output_file = output_file,
+                           output_format = output_format,
+                           output_file = output_file,
                            output_options = list(lib_dir = "site_libs",
                                                  self_contained = FALSE),
                            params = knit_params,
