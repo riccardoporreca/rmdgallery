@@ -1,6 +1,8 @@
-# rmdgallery (development version)
+# rmdgallery 0.2.2
 
-- The `gallery_site()` generator now works when `rmarkdown::render_site()` is called on a directory other than the current (#11).
+## Patch release
+
+- The `gallery_site()` generator now works when `rmarkdown::render_site()` is called with any path to a directory containing the website sources (#11).
 
 # rmdgallery 0.2.1
 
