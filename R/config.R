@@ -23,6 +23,7 @@ gallery_site_config <- function(input = ".") {
     meta <- with_defaults(meta, config$gallery)
     check_missing_template(meta)
     config$gallery$meta <- meta
+    config$gallery <- with_includes(config$gallery, input)
   }
   config
 }
@@ -43,7 +44,7 @@ assign_type_template <- function(meta, type_field, type_templates) {
   type <- get_meta_field(meta, type_field)
   with_type <- is.na(template) & !is.na(type)
   template_from_type <- get_type_template(type[with_type], type_templates)
-  miss_template <- is.na(template_from_type )
+  miss_template <- is.na(template_from_type)
   if (any(miss_template)) {
     stop(
       "Missing template specification for custom type(s) ",
@@ -85,3 +86,24 @@ check_missing_template <- function(meta) {
   invisible(meta)
 }
 
+with_includes <- function(gallery_config, path = ".") {
+  includes <- intersect(
+    c("include_before", "include_after"),
+    names(gallery_config)
+  )
+  gallery_config[includes] <- lapply(
+    gallery_config[includes], function(include) {
+      include_file <- file.path(path, include)
+      if (!file.exists(include_file)) {
+        .Deprecated(msg = paste(
+          "Inline definition of `include_before` and `include_after` is deprecated.",
+          "They should define the path to a file with the content to be included."
+        ))
+        include
+      } else {
+        paste(readLines(include_file), collapse = "\n")
+      }
+    }
+  )
+  gallery_config
+}
