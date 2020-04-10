@@ -128,14 +128,8 @@ gallery:
     left:
       - text: "Gallery"
         icon: fa-gear
-  include_before: |
-    <hr>include_before for {{title}}<hr/>
-  after: |
-    {{htmltools::tagList(
-        htmltools::hr(),
-        "include_after for", title,
-        htmltools::hr()
-    )}}
+  include_before: _includes/before_gallery.html
+  include_after: _includes/after_gallery.R
 ```
 
 - `meta_dir:` Optional name of the directory containing `.json`, `.yml` and `.yaml` metadata files. Defaults to `meta` if not specified.
@@ -144,7 +138,16 @@ gallery:
 - `type_field:`, `type_template:` Optional fields defining custom page _types_ (see ['Page types'](#page-types) above).
 - `defaults:` Optional list of default values for unspecified metadata fields.
 - `navbar:` The gallery navigation menu to be included in the standard `navbar:` of `_site.yml`. The menu is populated with the `menu_entry` of each page from the metadata. Can be omitted if no such menu should be included.
-- `include_before:`, `include_after:` Custom content to be included before and after the main `content`. Both are included for each page and may be defined in terms of fields from the metadata via using `{{...}}`. Such placeholders are then processed using `glue::glue_data(meta)`, where `meta` is the list of metadata for a given page. This allows to use simple string replacements of raw HTML code (like in `include_before:` in the example) or R expression constructing HTML elements via [**htmltools**](https://cran.r-project.org/package=htmltools) (like in `include_after:`).
+- `include_before:`, `include_after:` Optional path to files defining custom content included before and after the main `content`. Both are included for each page and may be defined in terms of fields from the metadata using `{{...}}`. Such placeholders are then processed using `glue::glue_data(meta)`, where `meta` is the list of metadata for a given page. This allows to use simple string replacements in raw HTML code, as in the following example of `_includes/before_gallery.html`
+  ``` html
+  <hr>include_before for {{title}}<hr/>
+  ```
+but also to define complete R expressions constructing HTML elements via [**htmltools**](https://cran.r-project.org/package=htmltools), as in the following `_includes/after_gallery.R`:
+  ``` r
+  {{htmltools::tagList(
+      htmltools::hr(), "include_after for", title, htmltools::hr()
+  )}}
+  ```
 
 You can see the various elements of the configuration in action in the [rmd-gallery-example](https://github.com/riccardoporreca/rmd-gallery-example#readme) GitHub repository.
 
