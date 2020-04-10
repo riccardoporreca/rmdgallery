@@ -142,7 +142,7 @@ gallery:
   ``` html
   <hr>include_before for {{title}}<hr/>
   ```
-but also to define complete R expressions constructing HTML elements via [**htmltools**](https://cran.r-project.org/package=htmltools), as in the following `_includes/after_gallery.R`:
+  but also to define complete R expressions constructing HTML elements via [**htmltools**](https://cran.r-project.org/package=htmltools), as in the following `_includes/after_gallery.R`:
   ``` r
   {{htmltools::tagList(
       htmltools::hr(), "include_after for", title, htmltools::hr()
