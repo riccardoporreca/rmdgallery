@@ -1,5 +1,7 @@
 # rmdgallery (development version)
 
+- `include_before` and `include_after` in the `gallery` site configuration now define the path to a file with the included content (#14). The old inline content definition is still supported but triggers a deprecation warning.
+
 # rmdgallery 0.2.2
 
 ## Patch release
