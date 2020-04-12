@@ -66,3 +66,29 @@ with_name_field <- function(meta, name_field) {
   }
   set_meta_field(meta, name_field, names(meta))
 }
+
+parse_order_by <- function(by) {
+  pattern <- "^desc\\((.*))$"
+  decreasing <- grepl(pattern, by)
+  field <- sub(pattern, "\\1", by)
+  list(
+    field = field,
+    decreasing = decreasing
+  )
+}
+
+as_sorted_factor <- function(x, decreasing = FALSE) {
+  factor(x, sort(unique(x), decreasing = decreasing))
+}
+
+sort_meta <- function(meta, by = character(0)) {
+  parsed <- parse_order_by(by)
+  factors <- Map(
+    as_sorted_factor,
+    Map(get_meta_field, parsed$field, MoreArgs = list(meta = meta)),
+    parsed$decreasing
+  )
+  # always include the names as (last) criterion
+  factors$..names.. <- names(meta)
+  meta[do.call(order, factors)]
+}

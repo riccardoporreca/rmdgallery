@@ -22,6 +22,7 @@ gallery_site_config <- function(input = ".") {
     meta <- with_name_field(meta, "page_name")
     meta <- with_type_template(meta, config$gallery)
     meta <- with_defaults(meta, config$gallery)
+    meta <- sort_meta(meta, config$gallery$order_by %||% "page_name")
     check_missing_template(meta)
     config$gallery$meta <- meta
     config$gallery <- with_includes(config$gallery, input)

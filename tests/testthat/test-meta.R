@@ -166,3 +166,36 @@ test_that("Error if the name field is already present correctly", {
     ignore.case = TRUE
   )
 })
+
+test_that("`order_by` configuration is parsed correctly" , {
+  expect_identical(
+    parse_order_by(c("foo", "desc(bar)", "desc(foo(bar))", "foo(desc(bar))")),
+    list(
+      field = c("foo", "bar", "foo(bar)", "foo(desc(bar))"),
+      decreasing = c(FALSE, TRUE, TRUE, FALSE)
+    )
+  )
+})
+
+test_that("Metadata are ordered correctly", {
+  meta <- list(
+    b = list(foo = "A", bar = "B", zoo = "A"), # 2
+    d = list(foo = "B", bar = "B", zoo = "B"), # 5
+    e = list(foo = "B", bar = "B", zoo = "A"), # 1
+    a = list(           bar = "B", zoo = "A"), # 3
+    c = list(foo = "B", bar = "B", zoo = "B")  # 4
+  )
+  expect_identical(
+    sort_meta(meta, by = c("zoo", "desc(foo)")),
+    meta[c("e", "b", "a", "c", "d")]
+  )
+  expect_identical(
+    sort_meta(meta),
+    meta[letters[1:5]]
+  )
+  expect_identical(
+    sort_meta(meta, "dummy"),
+    meta[letters[1:5]]
+  )
+})
+
