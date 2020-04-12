@@ -117,6 +117,7 @@ navbar:
 gallery:
   meta_dir: "meta"
   single_meta: false
+  order_by: [page_name, ...]
   template_dir: "path/to/cutom/templates"
   type_field: my_type
   type_template:
@@ -134,6 +135,7 @@ gallery:
 
 - `meta_dir:` Optional name of the directory containing `.json`, `.yml` and `.yaml` metadata files. Defaults to `meta` if not specified.
 - `single_meta:` Optional `true` or `false` defining whether the files define metadata for individual pages, in which case e.g. a file `foo.json` would contain only the metadata for the `foo.html` page. Defaults to `false` if not specified.
+- `order_by`: Optional fields used to sort the list of metadata. If missing, the default `page_name` is a field added by **rmdgallery** containing the name of the entry in the metadata list for each page.
 - `template_dir:` Optional location of additional custom templates.
 - `type_field:`, `type_template:` Optional fields defining custom page _types_ (see ['Page types'](#page-types) above).
 - `defaults:` Optional list of default values for unspecified metadata fields.
