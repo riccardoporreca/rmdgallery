@@ -9,7 +9,10 @@
 #'   the pages to be generated, as read from the `.json`, `.yml` and `yaml`
 #'   files, where `$gallery$type_field` and `gallery$type_template` (if present)
 #'   have been already used to lookup the actual `template`. In addition,
-#'   default field values specified as `gallery$defaults` are also applied.
+#'   default field values specified as `gallery$defaults` are also applied. The
+#'   metadata in `$gallery$meta` also include an additional field `page_name`
+#'   containing the names of the metadata list itself, serving as names for the
+#'   HTML pages that will be generated.
 #'
 #' @export
 gallery_site_config <- function(input = ".") {
@@ -19,8 +22,10 @@ gallery_site_config <- function(input = ".") {
     single_meta <- config$gallery$single_meta %||% FALSE
     meta_files <- site_meta_files(file.path(input, meta_dir))
     meta <- read_meta(meta_files, single_meta)
+    meta <- with_name_field(meta, "page_name")
     meta <- with_type_template(meta, config$gallery)
     meta <- with_defaults(meta, config$gallery)
+    meta <- sort_meta(meta, config$gallery$order_by %||% "page_name")
     check_missing_template(meta)
     config$gallery$meta <- meta
     config$gallery <- with_includes(config$gallery, input)

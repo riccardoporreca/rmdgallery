@@ -55,3 +55,40 @@ set_meta_field <- function(meta, field, value) {
     meta, value
   )
 }
+
+with_name_field <- function(meta, name_field) {
+  name_values <- get_meta_field(meta, name_field)
+  # the specified field should not exist
+  if (any(!is.na(name_values))) {
+    stop(
+      "Field ", toQuotedString(name_field), " cannot be used",
+      " for storing the matadata names since it is already in use.")
+  }
+  set_meta_field(meta, name_field, names(meta))
+}
+
+parse_order_by <- function(by) {
+  pattern <- "^desc\\((.*))$"
+  decreasing <- grepl(pattern, by)
+  field <- sub(pattern, "\\1", by)
+  list(
+    field = field,
+    decreasing = decreasing
+  )
+}
+
+as_sorted_factor <- function(x, decreasing = FALSE) {
+  factor(x, sort(unique(x), decreasing = decreasing))
+}
+
+sort_meta <- function(meta, by = character(0)) {
+  parsed <- parse_order_by(by)
+  factors <- Map(
+    as_sorted_factor,
+    Map(get_meta_field, parsed$field, MoreArgs = list(meta = meta)),
+    parsed$decreasing
+  )
+  # always include the names as (last) criterion
+  factors$..names.. <- names(meta)
+  meta[do.call(order, factors)]
+}

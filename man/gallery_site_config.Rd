@@ -15,7 +15,10 @@ an additional element \verb{$gallery$meta}, a list containing the metadata of
 the pages to be generated, as read from the \code{.json}, \code{.yml} and \code{yaml}
 files, where \verb{$gallery$type_field} and \code{gallery$type_template} (if present)
 have been already used to lookup the actual \code{template}. In addition,
-default field values specified as \code{gallery$defaults} are also applied.
+default field values specified as \code{gallery$defaults} are also applied. The
+metadata in \verb{$gallery$meta} also include an additional field \code{page_name}
+containing the names of the metadata list itself, serving as names for the
+HTML pages that will be generated.
 }
 \description{
 Site configuration for the \code{\link[=gallery_site]{gallery_site()}} generator.
