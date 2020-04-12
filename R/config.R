@@ -9,7 +9,10 @@
 #'   the pages to be generated, as read from the `.json`, `.yml` and `yaml`
 #'   files, where `$gallery$type_field` and `gallery$type_template` (if present)
 #'   have been already used to lookup the actual `template`. In addition,
-#'   default field values specified as `gallery$defaults` are also applied.
+#'   default field values specified as `gallery$defaults` are also applied. The
+#'   metadata in `$gallery$meta` also include an additional field `page_name`
+#'   containing the names of the metadata list itself, serving as names for the
+#'   HTML pages that will be generated.
 #'
 #' @export
 gallery_site_config <- function(input = ".") {
