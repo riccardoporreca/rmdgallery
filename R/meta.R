@@ -55,3 +55,14 @@ set_meta_field <- function(meta, field, value) {
     meta, value
   )
 }
+
+with_name_field <- function(meta, name_field) {
+  name_values <- get_meta_field(meta, name_field)
+  # the specified field should not exist
+  if (any(!is.na(name_values))) {
+    stop(
+      "Field ", toQuotedString(name_field), " cannot be used",
+      " for storing the matadata names since it is already in use.")
+  }
+  set_meta_field(meta, name_field, names(meta))
+}

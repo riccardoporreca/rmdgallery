@@ -19,6 +19,7 @@ gallery_site_config <- function(input = ".") {
     single_meta <- config$gallery$single_meta %||% FALSE
     meta_files <- site_meta_files(file.path(input, meta_dir))
     meta <- read_meta(meta_files, single_meta)
+    meta <- with_name_field(meta, "page_name")
     meta <- with_type_template(meta, config$gallery)
     meta <- with_defaults(meta, config$gallery)
     check_missing_template(meta)

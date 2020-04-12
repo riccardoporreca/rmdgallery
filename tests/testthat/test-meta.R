@@ -141,3 +141,28 @@ test_that("Get/set round-trip does not alter metadata", {
     meta
   )
 })
+
+test_that("Metadata name field is added correctly", {
+  meta <- list(
+    a = list(foo = "A"), b = list(foo = "B"), c = list(foo = "C")
+  )
+  expected <- meta
+  expected$a$name <- "a"
+  expected$b$name <- "b"
+  expected$c$name <- "c"
+  expect_identical(
+    with_name_field(meta, "name"),
+    expected
+  )
+})
+
+test_that("Error if the name field is already present correctly", {
+  meta <- list(
+    a = list(foo = "A"), b = list(foo = "B", name = "_b_"), c = list(foo = "C")
+  )
+  expect_error(
+    with_name_field(meta, "name"),
+    glob2rx(paste("*", toQuotedString("name"), "*already in use*")),
+    ignore.case = TRUE
+  )
+})
