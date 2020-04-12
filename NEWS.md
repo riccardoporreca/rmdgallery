@@ -1,5 +1,7 @@
 # rmdgallery (development version)
 
+- A new field `order_by` in the `gallery` site configuration allows specifying a set of fields the metadata should be ordered by (#15).
+- A new metadata field `page_name` is included for each page, containing the name of the corresponding element in the metadata list eventually used for the resulting HTML page (#15).
 - `include_before` and `include_after` in the `gallery` site configuration now define the path to a file with the included content (#14). The old inline content definition is still supported but triggers a deprecation warning.
 
 # rmdgallery 0.2.2
