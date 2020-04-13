@@ -64,10 +64,11 @@ foo:
 bar: 
   title: Embed content from an external URL
   menu_entry: URL example
+  menu_icon: fa-gear
   template: embed-url
   content: https://example.com
 ```
-defines the metadata for pages rendered as `foo.html` and `bar.html` with the given page `title`, also adding the specified `menu_entry` to the [site navigation bar](https://bookdown.org/yihui/rmarkdown/rmarkdown-site.html#site-navigation).
+defines the metadata for pages rendered as `foo.html` and `bar.html` with the given page `title`, also adding the specified `menu_entry` to the [site navigation bar](https://bookdown.org/yihui/rmarkdown/rmarkdown-site.html#site-navigation). The entry for `bar.html` in the site navigation bar will also include the specified `menu_icon`.
 
 The way metadata, especially the `content`, are used to produce the resulting page depends on the specified `template`. Templates might in general make use of additional specific metadata fields, which can also be used for additional content included in the custom site [configuration](#configuration-and-customization).
 

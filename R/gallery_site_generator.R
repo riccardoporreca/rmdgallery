@@ -40,41 +40,6 @@ gallery_site <- function(input, ...) {
     files[!grepl("^README\\.R?md$", files)]
   }
 
-  # helper function constructing the gallery navbar entry
-  navbar_with_gallery <- function() {
-    if (!is.null(config$gallery$navbar)) {
-      gallery_navbar <- config$gallery$navbar
-      meta <- config$gallery$meta
-      # must have one element, which is the location, e.g. $left
-      stopifnot(length(gallery_navbar) == 1L)
-      gallery_links <- file_with_ext(names(meta), "html")
-      gallery_entry <- vapply(meta, FUN.VALUE = "", function(x) {
-        x$menu_entry %||% NA_character_
-      })
-      has_entry <- !is.na(gallery_entry)
-      duplicated <- duplicated(gallery_entry[has_entry])
-      if (any(duplicated)) {
-        stop(
-          "Found duplicate navbar menu entries: ",
-          toQuotedString(gallery_entry[has_entry][duplicated]))
-      }
-      gallery_navbar[[1L]][[1]]$menu <- mapply(
-        SIMPLIFY = FALSE, USE.NAMES = FALSE,
-        function(text, href) {
-          list(text = text, href = href)
-        },
-        gallery_entry[has_entry], gallery_links[has_entry]
-      )
-      # add to the user-defined navbar from the main site configuration
-      navbar <- config$navbar
-      navbar[[names(gallery_navbar)]] <- c(
-        navbar[[names(gallery_navbar)]],
-        gallery_navbar[[1]]
-      )
-      navbar
-    }
-  }
-
   # define render function (use ... to gracefully handle future args)
   render <- function(input_file,
                      output_format,
@@ -82,8 +47,8 @@ gallery_site <- function(input, ...) {
                      quiet,
                      ...) {
 
-    navbar <- navbar_with_gallery()
-    if (!is.null(navbar) == 1L) {
+    navbar <- navbar_with_gallery(config)
+    if (!is.null(navbar)) {
       custom_navbar <- file.path(input, "_navbar.html")
       file.copy(rmarkdown::navbar_html(navbar), custom_navbar, overwrite = TRUE)
       on.exit(unlink(custom_navbar))

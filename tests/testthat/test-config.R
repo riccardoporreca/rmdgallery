@@ -63,3 +63,98 @@ test_that("Setting defaults works", {
     info = "fully-specified field"
   )
 })
+
+test_that("navbar_menu_entry() behaves correctly", {
+  # separate menu_fields
+  meta_fields <- list(
+    menu_entry = "txt", menu_icon = "ico", page_name = "foo"
+  )
+  # single field with text and icon elements
+  meta_navbar <- list(
+    menu_entry = list(text = "txt", icon = "ico"), page_name = "foo"
+  )
+  expected <- list(
+    text = "txt", icon = "ico", href = "foo.html"
+  )
+  expect_null(navbar_menu_entry(list()))
+  expect_equal(
+    navbar_menu_entry(meta_fields[c("menu_entry", "page_name")]),
+    expected[c("text", "href")]
+  )
+  expect_equal(
+    navbar_menu_entry(meta_fields[c("menu_icon", "page_name")]),
+    expected[c("icon", "href")]
+  )
+  expect_equal(
+    navbar_menu_entry(meta_fields),
+    expected
+  )
+  expect_equal(
+    navbar_menu_entry(meta_navbar),
+    expected
+  )
+})
+
+meta <- list(
+  a = list(menu_entry = "txta", menu_icon = "ico", page_name = "foo"),
+  b = list(menu_entry = "txtb", menu_icon = "ico", page_name = "bar")
+)
+
+test_that("The gallery navbar menu is constructed correctly", {
+  meta <- list(
+    a = list(menu_entry = "txta", menu_icon = "ico", page_name = "foo"),
+    b = list(menu_entry = "txtb", menu_icon = "ico", page_name = "bar")
+  )
+  expected <- list(
+    list(text = "txta", icon = "ico", href = "foo.html"),
+    list(text = "txtb", icon = "ico", href = "bar.html")
+  )
+  expect_equal(
+    gallery_navbar_menu(meta),
+    expected
+  )
+  # error on duplicated keys
+  meta$b <- meta$a
+  expect_error(
+    gallery_navbar_menu(meta),
+    glob2rx(paste("*duplicate*", toQuotedString("ico txta"))),
+    ignore.case = TRUE
+  )
+})
+
+test_that("The gallery navbar is added correctly", {
+  config <- list(
+    navbar = list(
+      left = list(list(text = "home", href = "home.html")),
+      right = list(list(text = "office", href = "office.html"))
+    ),
+    gallery = list(
+      navbar = list(left = list(list(text = "gallery"))),
+      meta = meta
+    )
+  )
+  expected <- config$navbar
+  expected$left <- c(
+    expected$left,
+    list(list(text = "gallery", menu = gallery_navbar_menu(meta)))
+  )
+  expect_equal(
+    navbar_with_gallery(config),
+    expected
+  )
+
+  # no gallery$navbar
+  expect_equal(
+    navbar_with_gallery(config["navbar"]),
+    config$navbar
+  )
+  # only gallery$navbar
+  expect_equal(
+    navbar_with_gallery(config["gallery"]),
+    list(left = expected$left[2])
+  )
+  # no gallery$navbar
+  expect_null(
+    navbar_with_gallery(list(dummy = "dummy"))
+  )
+})

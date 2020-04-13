@@ -112,3 +112,52 @@ with_includes <- function(gallery_config, path = ".") {
   )
   gallery_config
 }
+
+navbar_menu_entry <- function(meta) {
+  entry <- meta$menu_entry
+  if (!is.list(entry)) {
+    entry <- list()
+    entry$text = meta$menu_entry
+    entry$icon = meta$menu_icon
+  }
+  if (length(entry) > 0L) {
+    stopifnot(length(meta$page_name) == 1L)
+    entry$href <- file_with_ext(meta$page_name, "html")
+    entry
+  } else {
+    NULL
+  }
+}
+
+gallery_navbar_menu <- function(meta) {
+  gallery_entries <- lapply(meta, navbar_menu_entry)
+  names(gallery_entries) <- NULL
+  has_entry <- sapply(gallery_entries, length) != 0L
+  gallery_entries <- gallery_entries[has_entry]
+  gallery_keys <- vapply(gallery_entries, FUN.VALUE = "", function(x) {
+    paste(c(x$icon, x$text), collapse = " ")
+  })
+  duplicated <- duplicated(gallery_keys)
+  if (any(duplicated)) {
+    stop(
+      "Found duplicate navbar menu entries: ",
+      toQuotedString(gallery_keys[duplicated]))
+  }
+  gallery_entries
+}
+
+navbar_with_gallery <- function(config) {
+  gallery_navbar <- config$gallery$navbar
+  navbar <- config$navbar
+  if (!is.null(gallery_navbar)) {
+    # must have one element, which is the location, e.g. $left
+    stopifnot(length(gallery_navbar) == 1L)
+    gallery_navbar[[1L]][[1L]]$menu <- gallery_navbar_menu(config$gallery$meta)
+    # add to the user-defined navbar from the main site configuration
+    navbar[[names(gallery_navbar)]] <- c(
+      navbar[[names(gallery_navbar)]],
+      gallery_navbar[[1]]
+    )
+  }
+  navbar
+}
