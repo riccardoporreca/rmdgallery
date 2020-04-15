@@ -64,10 +64,11 @@ foo:
 bar: 
   title: Embed content from an external URL
   menu_entry: URL example
+  menu_icon: fa-gear
   template: embed-url
   content: https://example.com
 ```
-defines the metadata for pages rendered as `foo.html` and `bar.html` with the given page `title`, also adding the specified `menu_entry` to the [site navigation bar](https://bookdown.org/yihui/rmarkdown/rmarkdown-site.html#site-navigation).
+defines the metadata for pages rendered as `foo.html` and `bar.html` with the given page `title`, also adding the specified `menu_entry` to the [site navigation bar](https://bookdown.org/yihui/rmarkdown/rmarkdown-site.html#site-navigation). The entry for `bar.html` in the site navigation bar will also include the specified `menu_icon`.
 
 The way metadata, especially the `content`, are used to produce the resulting page depends on the specified `template`. Templates might in general make use of additional specific metadata fields, which can also be used for additional content included in the custom site [configuration](#configuration-and-customization).
 
@@ -117,6 +118,7 @@ navbar:
 gallery:
   meta_dir: "meta"
   single_meta: false
+  order_by: [title, desc(another_field)]
   template_dir: "path/to/cutom/templates"
   type_field: my_type
   type_template:
@@ -128,23 +130,27 @@ gallery:
     left:
       - text: "Gallery"
         icon: fa-gear
-  include_before: |
-    <hr>include_before for {{title}}<hr/>
-  after: |
-    {{htmltools::tagList(
-        htmltools::hr(),
-        "include_after for", title,
-        htmltools::hr()
-    )}}
+  include_before: _includes/before_gallery.html
+  include_after: _includes/after_gallery.R
 ```
 
 - `meta_dir:` Optional name of the directory containing `.json`, `.yml` and `.yaml` metadata files. Defaults to `meta` if not specified.
 - `single_meta:` Optional `true` or `false` defining whether the files define metadata for individual pages, in which case e.g. a file `foo.json` would contain only the metadata for the `foo.html` page. Defaults to `false` if not specified.
+- `order_by`: Optional fields used to sort the list of metadata. Use `desc(<field>)` for decreasing order. If missing, the default `page_name` is a field added by **rmdgallery** containing the name of the entry in the metadata list for each page.
 - `template_dir:` Optional location of additional custom templates.
 - `type_field:`, `type_template:` Optional fields defining custom page _types_ (see ['Page types'](#page-types) above).
 - `defaults:` Optional list of default values for unspecified metadata fields.
 - `navbar:` The gallery navigation menu to be included in the standard `navbar:` of `_site.yml`. The menu is populated with the `menu_entry` of each page from the metadata. Can be omitted if no such menu should be included.
-- `include_before:`, `include_after:` Custom content to be included before and after the main `content`. Both are included for each page and may be defined in terms of fields from the metadata via using `{{...}}`. Such placeholders are then processed using `glue::glue_data(meta)`, where `meta` is the list of metadata for a given page. This allows to use simple string replacements of raw HTML code (like in `include_before:` in the example) or R expression constructing HTML elements via [**htmltools**](https://cran.r-project.org/package=htmltools) (like in `include_after:`).
+- `include_before:`, `include_after:` Optional path to files defining custom content included before and after the main `content`. Both are included for each page and may be defined in terms of fields from the metadata using `{{...}}`. Such placeholders are then processed using `glue::glue_data(meta)`, where `meta` is the list of metadata for a given page. This allows to use simple string replacements in raw HTML code, as in the following example of `_includes/before_gallery.html`
+  ``` html
+  <hr>include_before for {{title}}<hr/>
+  ```
+  but also to define complete R expressions constructing HTML elements via [**htmltools**](https://cran.r-project.org/package=htmltools), as in the following `_includes/after_gallery.R`:
+  ``` r
+  {{htmltools::tagList(
+      htmltools::hr(), "include_after for", title, htmltools::hr()
+  )}}
+  ```
 
 You can see the various elements of the configuration in action in the [rmd-gallery-example](https://github.com/riccardoporreca/rmd-gallery-example#readme) GitHub repository.
 
