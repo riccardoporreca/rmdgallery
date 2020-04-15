@@ -67,7 +67,9 @@ gallery_site <- function(input, ...) {
     else {
       files <- file.path(input, input_files())
     }
-    files <- c(files, file_with_ext(names(config$gallery$meta), "meta"))
+    if (length(config$gallery$meta) > 0L) {
+      files <- c(files, file_with_ext(names(config$gallery$meta), "meta"))
+    }
 
     sapply(files, function(x) {
       render_one <- if (isTRUE(config$new_session)) {
