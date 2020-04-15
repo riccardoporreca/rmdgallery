@@ -7,10 +7,9 @@
 - A new metadata field `page_name` is included for each page, containing the name of the corresponding element in the metadata list eventually used for the resulting HTML page (#15).
 - Icons for the gallery navigation bar menu are now supported in the metadata, and specified as a new field `menu_icon` or by defining the `menu_entry` field with two components `text` and `icon` (#16).
 
-# Fix
+## Minor fix
 
 - The `gallery_site()` generator now works with an empty list of metadata (#20).
-
 
 # rmdgallery 0.2.2
 
