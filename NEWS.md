@@ -1,3 +1,5 @@
+# rmdgallery (development version)
+
 # rmdgallery 0.3.0
 
 ## New features
