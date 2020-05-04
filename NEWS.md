@@ -1,5 +1,11 @@
 # rmdgallery (development version)
 
+# rmdgallery 0.3.1
+
+## Patch release
+
+- The provided templates now support `title` field values that would require quoting or escaping (#23).
+
 # rmdgallery 0.3.0
 
 ## New features
