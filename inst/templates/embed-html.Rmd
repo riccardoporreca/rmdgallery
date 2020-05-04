@@ -1,5 +1,6 @@
 ---
-title: {{title}}
+title: >
+  {{title}}
 params:
   content: NULL
   gallery_config: NULL
