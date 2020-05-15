@@ -70,26 +70,27 @@ gallery_content <- function(..., gallery_config = NULL, class = NULL) {
 }
 
 
-fill <- function(x, with) {
+fill <- function(x, with, envir = parent.frame()) {
   y <- glue::glue_data(
     with,
     x,
-    .open = "{{", .close = "}}"
+    .open = "{{", .close = "}}",
+    .envir = envir
   )
   class(y) <- class(x)
   y
 }
 
-fill_template <- function(meta, template) {
+fill_template <- function(meta, template, envir = parent.frame()) {
   if (length(meta$gallery_config$include_before) > 0L) {
     meta$gallery_config$include_before <-
-      fill(meta$gallery_config$include_before, meta)
+      fill(meta$gallery_config$include_before, meta, envir)
   }
   if (length(meta$gallery_config$include_after) > 0L) {
     meta$gallery_config$include_after <-
-      fill(meta$gallery_config$include_after, meta)
+      fill(meta$gallery_config$include_after, meta, envir)
   }
-  filled <- fill(paste(template, collapse = "\n"), meta)
+  filled <- fill(paste(template, collapse = "\n"), meta, envir)
   knit_params <- names(knitr::knit_params(filled, evaluate = FALSE))
   attr(filled, "params") <- meta[names(meta) %in% knit_params]
   filled
@@ -110,7 +111,7 @@ find_template <- function(template, paths = character(0)) {
   template_file
 }
 
-from_template <- function(meta, paths = character(0)) {
+from_template <- function(meta, paths = character(0), envir = parent.frame()) {
   template <- find_template(meta$template, paths)
-  fill_template(meta, readLines(template))
+  fill_template(meta, readLines(template), envir)
 }

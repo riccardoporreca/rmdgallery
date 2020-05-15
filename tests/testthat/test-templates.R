@@ -1,16 +1,52 @@
+# fill template ----
+
+template <- "{{gallery_config$include_before}} {{title}} {{gallery_config$include_after}}"
+meta <- list(
+  gallery_config = list(
+    include_before = "{{before}}",
+    include_after = "{{after}}"
+  ),
+  title = "TITLE", before = "BEFORE", after = "AFTER"
+)
+testthat::test_that("fill_template works", {
+  filled <- fill_template(meta, template)
+  # we do not care about the 'params' attribute
+  expect_equivalent(filled, "BEFORE TITLE AFTER")
+})
+
+testthat::test_that("fill_template works with the `envir` argument", {
+  template <- sub("title", "E2e(title)", template)
+  meta$gallery_config <- list(
+    include_before = "{{E2e(before)}}",
+    include_after = "{{E2e(after)}}"
+  )
+  expect_error(fill_template(meta, template), "could not find.*E2e")
+  env <- new.env()
+  env$E2e <- function(x) chartr("E", "e", x)
+  filled <- fill_template(meta, template, envir = env)
+  expect_equivalent(filled, "BeFORe TITLe AFTeR")
+})
+
+
+# render templates ----
+
 common_meta <- list(
   gallery_config = list(
     include_before = '<hr><a href="https://example.com">before - Author: {{author}}</a><hr/>',
-    include_after = '{{htmltools::tagList(htmltools::hr(), "after -", title, htmltools::hr())}}'
+    include_after = '{{htmltools::tagList(hr(), "after -", title, hr())}}'
   ),
   title = 'A: "Foo" & Bar\'s',
   author = "Me"
 )
 
+envir <- new.env()
+envir$hr <- htmltools::hr
+
 .test_template <- function(template, ...) {
   testthat::test_that(paste("template", sQuote(template), "can be filled and rendered"), {
     filled <- from_template(
-      meta = c(common_meta, list(template = template, ...))
+      meta = c(common_meta, list(template = template, ...)),
+      envir = envir
     )
     rmd <- tempfile(template, fileext = ".rmd")
     writeLines(filled, rmd)
