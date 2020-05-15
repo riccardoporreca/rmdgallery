@@ -13,6 +13,14 @@ render_time_utils <- list(
   `%||%` = `%||%`
 )
 
+# environment with render-time utilities, including site_path()
+render_time_env <- function(input, parent = parent.frame()) {
+  env <- list2env(render_time_utils, parent = parent)
+  env$site_path <- function(...) file.path(input, ...)
+  env
+}
+
+
 toQuotedString <- function(x) {
   toString(sQuote(x, q = FALSE))
 }
