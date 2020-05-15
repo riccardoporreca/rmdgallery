@@ -82,7 +82,11 @@ gallery_site <- function(input, ...) {
       output_file <- NULL
       if (!quiet) message("\nRendering: ", x)
 
+      # make utilities available when filling templates and rendering
+      envir <- render_time_env(input, parent = envir)
+
       if (tools::file_ext(x) == "meta") {
+
         name <- tools::file_path_sans_ext(x)
         meta <- config$gallery$meta[[name]]
         if (!quiet) message("\nMetadata from: ", meta$.meta_file)
@@ -94,14 +98,12 @@ gallery_site <- function(input, ...) {
         template_dir <- if (!is.null(config$gallery$template_dir)) {
           file.path(input, config$gallery$template_dir)
         }
-        rmd_content <- from_template(meta, template_dir)
+        rmd_content <- from_template(meta, template_dir, envir = envir)
         knit_params <- attr(rmd_content, "params")
         writeLines(rmd_content, x)
         on.exit(unlink(x))
       }
 
-      # make some useful utils available when rendering
-      envir <- list2env(render_time_utils, parent = envir)
       output <- render_one(input = x,
                            output_format = output_format,
                            output_file = output_file,
