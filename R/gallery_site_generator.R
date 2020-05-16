@@ -82,9 +82,6 @@ gallery_site <- function(input, ...) {
       output_file <- NULL
       if (!quiet) message("\nRendering: ", x)
 
-      # make utilities available when filling templates and rendering
-      envir <- render_time_env(input, parent = envir)
-
       if (tools::file_ext(x) == "meta") {
 
         name <- tools::file_path_sans_ext(x)
