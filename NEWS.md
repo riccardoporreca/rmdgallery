@@ -1,5 +1,7 @@
 # rmdgallery (development version)
 
+- A function `site_path()`, constructing paths relative to the site source directory, is now made available when evaluating `{{...}}` expressions based on page-specific metadata and at rendering time.
+
 # rmdgallery 0.3.1
 
 ## Patch release
