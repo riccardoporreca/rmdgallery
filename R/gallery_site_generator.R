@@ -98,11 +98,19 @@ gallery_site <- function(input, ...) {
         template_dir <- if (!is.null(config$gallery$template_dir)) {
           file.path(input, config$gallery$template_dir)
         }
-        rmd_content <- from_template(meta, template_dir, envir = envir)
+        # make utilities available when filling templates, with `site_path()`
+        # relative to `input` (w/o including the existing rendering `envir`)
+        fill_env <- fill_render_env(input)
+        rmd_content <- from_template(meta, template_dir, envir = fill_env)
         knit_params <- attr(rmd_content, "params")
         writeLines(rmd_content, x)
         on.exit(unlink(x))
       }
+
+      # make utilities available when rendering (on top of the existing
+      # rendering `envir`), with `site_path()` relative to the site directory
+      # becoming the current directory at rendering time
+      render_env <- fill_render_env(site_dir = ".", parent = envir)
 
       output <- render_one(input = x,
                            output_format = output_format,
@@ -110,7 +118,7 @@ gallery_site <- function(input, ...) {
                            output_options = list(lib_dir = "site_libs",
                                                  self_contained = FALSE),
                            params = knit_params,
-                           envir = envir,
+                           envir = render_env,
                            quiet = quiet)
 
       # add to global list of outputs
