@@ -1,6 +1,6 @@
 Package: rmdgallery
 Title: R Markdown Website Gallery Generator
-Version: 0.4.0
+Version: 0.4.0.9000
 Authors@R: 
     person(given = "Riccardo",
            family = "Porreca",
