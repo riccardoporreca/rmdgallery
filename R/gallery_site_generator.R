@@ -79,19 +79,21 @@ gallery_site <- function(input, ...) {
       }
 
       # log the file being rendered
-      output_file <- NULL
       if (!quiet) message("\nRendering: ", x)
 
-      if (tools::file_ext(x) == "meta") {
+      output_file <- NULL
+      knit_params <- NULL
 
+      if (tools::file_ext(x) == "meta") {
         name <- tools::file_path_sans_ext(x)
         meta <- config$gallery$meta[[name]]
         if (!quiet) message("\nMetadata from: ", meta$.meta_file)
-        # gallery config:
+        # include gallery configuration
         meta$gallery_config <- if (is.null(config$gallery)) list() else config$gallery
-        output_file <- name # extension and directory are included by rmarkdown::render
-
+        # temporary Rmd file with the filled template to be rendered
         x <- file.path(input, file_with_ext(sprintf(".tmp_%s", name), "Rmd"))
+        output_file <- name # extension and directory are included by rmarkdown::render
+        # custom template directory
         template_dir <- if (!is.null(config$gallery$template_dir)) {
           file.path(input, config$gallery$template_dir)
         }
