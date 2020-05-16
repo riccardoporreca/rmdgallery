@@ -154,6 +154,11 @@ gallery:
 
 You can see the various elements of the configuration in action in the [rmd-gallery-example](https://github.com/riccardoporreca/rmd-gallery-example#readme) GitHub repository.
 
+### Site-relative paths
+
+Paths to additional files (e.g. to `source()` utilities), needed when evaluating `{{...}}` expressions based on page-specific metadata and at rendering time,
+can be safely constructed as relative to the site source directory using function `site_path()`.
+
 ### Custom templates
 
 Besides the templates provided with **rmdgallery** (described above), it is possible to define custom R Markdown templates. These are standard R Markdown documents (as you would normally include in a [simple R Markdown website](https://bookdown.org/yihui/rmarkdown/rmarkdown-site.html)), which however will be populated with specific page metadata using two mechanisms:

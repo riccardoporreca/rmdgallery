@@ -79,36 +79,45 @@ gallery_site <- function(input, ...) {
       }
 
       # log the file being rendered
-      output_file <- NULL
       if (!quiet) message("\nRendering: ", x)
+
+      output_file <- NULL
+      knit_params <- NULL
 
       if (tools::file_ext(x) == "meta") {
         name <- tools::file_path_sans_ext(x)
         meta <- config$gallery$meta[[name]]
         if (!quiet) message("\nMetadata from: ", meta$.meta_file)
-        # gallery config:
+        # include gallery configuration
         meta$gallery_config <- if (is.null(config$gallery)) list() else config$gallery
-        output_file <- name # extension and directory are included by rmarkdown::render
-
+        # temporary Rmd file with the filled template to be rendered
         x <- file.path(input, file_with_ext(sprintf(".tmp_%s", name), "Rmd"))
+        output_file <- name # extension and directory are included by rmarkdown::render
+        # custom template directory
         template_dir <- if (!is.null(config$gallery$template_dir)) {
           file.path(input, config$gallery$template_dir)
         }
-        rmd_content <- from_template(meta, template_dir)
+        # make utilities available when filling templates, with `site_path()`
+        # relative to `input` (w/o including the existing rendering `envir`)
+        fill_env <- fill_render_env(input)
+        rmd_content <- from_template(meta, template_dir, envir = fill_env)
         knit_params <- attr(rmd_content, "params")
         writeLines(rmd_content, x)
         on.exit(unlink(x))
       }
 
-      # make some useful utils available when rendering
-      envir <- list2env(render_time_utils, parent = envir)
+      # make utilities available when rendering (on top of the existing
+      # rendering `envir`), with `site_path()` relative to the site directory
+      # becoming the current directory at rendering time
+      render_env <- fill_render_env(site_dir = ".", parent = envir)
+
       output <- render_one(input = x,
                            output_format = output_format,
                            output_file = output_file,
                            output_options = list(lib_dir = "site_libs",
                                                  self_contained = FALSE),
                            params = knit_params,
-                           envir = envir,
+                           envir = render_env,
                            quiet = quiet)
 
       # add to global list of outputs
