@@ -3,7 +3,6 @@
 
 <!-- badges: start -->
 [![R build status](https://github.com/riccardoporreca/rmdgallery/workflows/R-CMD-check/badge.svg)](https://github.com/riccardoporreca/rmdgallery/actions)
-[![Travis build status](https://travis-ci.com/riccardoporreca/rmdgallery.svg?branch=master)](https://travis-ci.com/riccardoporreca/rmdgallery)
 [![Codecov test coverage](https://codecov.io/gh/riccardoporreca/rmdgallery/branch/master/graph/badge.svg)](https://codecov.io/gh/riccardoporreca/rmdgallery?branch=master)
 <!-- badges: end -->
 
