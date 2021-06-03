@@ -87,3 +87,14 @@ jobs:
           remotes::install_cran("covr")
           covr::codecov()
         shell: Rscript {0}
+
+      - name: Build and deploy pkgdown website
+        # TODO: switch to main / master
+        if: success() && github.ref == 'refs/heads/feature/28-retire-travis' && runner.os == 'Linux' && matrix.config.r == 'release'
+        run: |
+          R CMD INSTALL .
+          Rscript -e 'install.packages("pkgdown")'
+          git config --local user.email "actions@github.com"
+          git config --local user.name "GitHub Actions"
+          Rscript -e 'pkgdown::deploy_to_branch(new_process = FALSE)'
+
