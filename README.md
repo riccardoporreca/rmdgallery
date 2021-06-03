@@ -2,7 +2,7 @@
 # rmdgallery
 
 <!-- badges: start -->
-[![R build status](https://github.com/riccardoporreca/rmdgallery/workflows/R-CMD-check/badge.svg)](https://github.com/riccardoporreca/rmdgallery/actions)
+[![R build status](https://github.com/riccardoporreca/rmdgallery/workflows/CI/badge.svg)](https://github.com/riccardoporreca/rmdgallery/actions)
 [![Codecov test coverage](https://codecov.io/gh/riccardoporreca/rmdgallery/branch/master/graph/badge.svg)](https://codecov.io/gh/riccardoporreca/rmdgallery?branch=master)
 <!-- badges: end -->
 
