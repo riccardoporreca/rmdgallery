@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">rmdgallery</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.0.9000</span>
       </span>
     </div>
 
@@ -41,7 +41,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -55,7 +55,7 @@
 <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="https://github.com/riccardoporreca/rmdgallery/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -82,43 +82,45 @@
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
 <p>You can install the <a href="https://github.com/riccardoporreca/rmdgallery/releases/latest">latest released</a> version of <strong>rmdgallery</strong> package from GitHub with:</p>
-<div class="sourceCode" id="cb1"><pre class="r"><span class="kw pkg">remotes</span><span class="kw ns">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span>(<span class="st">"riccardoporreca/rmdgallery"</span>)</pre></div>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span><span class="op">(</span><span class="st">"riccardoporreca/rmdgallery"</span><span class="op">)</span></code></pre></div>
 <p>If you have a website R project, you can define <strong>rmdgallery</strong> as a dependency in the <code>DESCRIPTION</code> file, with the corresponding entry in the <code>Remotes:</code> field (possibly specifying which release tag to use):</p>
 <pre><code>Imports:
   rmdgallery
 Remotes:
   riccardoporreca/rmdgallery</code></pre>
-<p>See e.g. <a href="https://github.com/riccardoporreca/rmd-gallery-example/blob/master/DESCRIPTION">rmd-gallery-example</a>.</p>
+<p>See e.g. <a href="https://github.com/riccardoporreca/rmd-gallery-example/blob/master/DESCRIPTION">rmd-gallery-example</a>.</p>
 <p>If you want to use the development version of the package, it is available from the <a href="https://github.com/riccardoporreca/rmdgallery/tree/develop"><code>develop</code></a> branch <code>riccardoporreca/rmdgallery@develop</code>, which can be used with <code><a href="https://remotes.r-lib.org/reference/install_github.html">remotes::install_github()</a></code></p>
-<div class="sourceCode" id="cb3"><pre class="r"><span class="kw pkg">remotes</span><span class="kw ns">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span>(<span class="st">"riccardoporreca/rmdgallery@develop"</span>)</pre></div>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span><span class="op">(</span><span class="st">"riccardoporreca/rmdgallery@develop"</span><span class="op">)</span></code></pre></div>
 <p>or in the <code>Remotes:</code> field of the <code>DESCRIPTION</code> file.</p>
 </div>
 <div id="using-rmdgallery" class="section level2">
 <h2 class="hasAnchor">
 <a href="#using-rmdgallery" class="anchor"></a>Using rmdgallery</h2>
-<p>The provided <code>rmdgallery::gallery_site</code> function (or it alias <code>rmdgallery::gallery_site_generator</code>) can be used as <a href="https://bookdown.org/yihui/rmarkdown/rmarkdown-site.html#custom-site-generators">custom site generator</a> for rendering a <a href="https://bookdown.org/yihui/rmarkdown/rmarkdown-site.html">simple R Markdown website</a> via <code><a href="https://rdrr.io/pkg/rmarkdown/man/render_site.html">rmarkdown::render_site()</a></code>. As such it must be specified as <code>site:</code> field of <code>index.(R)md</code></p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode yaml"><code class="sourceCode yaml"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="ot">---</span></a>
-<a class="sourceLine" id="cb4-2" data-line-number="2"><span class="fu">title:</span><span class="at"> </span><span class="st">"My Website"</span></a>
-<a class="sourceLine" id="cb4-3" data-line-number="3"><span class="fu">site:</span><span class="at"> rmdgallery::gallery_site</span></a>
-<a class="sourceLine" id="cb4-4" data-line-number="4"><span class="ot">---</span></a></code></pre></div>
+<p>The provided <code><a href="reference/gallery_site.html">rmdgallery::gallery_site</a></code> function (or it alias <code><a href="reference/gallery_site.html">rmdgallery::gallery_site_generator</a></code>) can be used as <a href="https://bookdown.org/yihui/rmarkdown/rmarkdown-site.html#custom-site-generators">custom site generator</a> for rendering a <a href="https://bookdown.org/yihui/rmarkdown/rmarkdown-site.html">simple R Markdown website</a> via <code><a href="https://pkgs.rstudio.com/rmarkdown/reference/render_site.html">rmarkdown::render_site()</a></code>. As such it must be specified as <code>site:</code> field of <code>index.(R)md</code></p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb4-1"><a href="#cb4-1"></a><span class="pp">---</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"My Website"</span></span>
+<span id="cb4-3"><a href="#cb4-3"></a><span class="fu">site</span><span class="kw">:</span><span class="at"> rmdgallery::gallery_site</span></span>
+<span id="cb4-4"><a href="#cb4-4"></a><span class="pp">---</span></span></code></pre></div>
 <p>Below we describe how the <strong><em>metadata</em></strong> for multiple pages are defined and used to render pages based on alternative <strong><em>templates</em></strong>, and how specific site <strong><em>configuration</em></strong> is added to the standard <code>_site.yml</code> configuration file.</p>
 <div id="page-metadata-and-templates" class="section level3">
 <h3 class="hasAnchor">
 <a href="#page-metadata-and-templates" class="anchor"></a>Page metadata and templates</h3>
 <p>At the core of <strong>rmdgallery</strong> are R Markdown templates for the pages to be included in the website, containing placeholders for metadata. The details behind how templates define and make use of metadata are covered in section <a href="#custom-templates">‘Custom templates’</a> below.</p>
 <p>The specific metadata of each individual page are defined in JSON (<code>.json</code>) or YAML (<code>.yml</code>, <code>.yaml</code>) file(s) in the <code>meta</code> directory of the website project. For example, the following YAML (or an analogous JSON)</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode yaml"><code class="sourceCode yaml"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="fu">foo:</span><span class="at"> </span></a>
-<a class="sourceLine" id="cb5-2" data-line-number="2">  <span class="fu">title:</span><span class="at"> Embed raw html content</span></a>
-<a class="sourceLine" id="cb5-3" data-line-number="3">  <span class="fu">menu_entry:</span><span class="at"> HTML example</span></a>
-<a class="sourceLine" id="cb5-4" data-line-number="4">  <span class="fu">template:</span><span class="at"> embed-html</span></a>
-<a class="sourceLine" id="cb5-5" data-line-number="5">  <span class="fu">content:</span><span class="at"> &lt;h3&gt;Hello Rmd Gallery&lt;/h3&gt;</span></a>
-<a class="sourceLine" id="cb5-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb5-7" data-line-number="7"><span class="fu">bar:</span><span class="at"> </span></a>
-<a class="sourceLine" id="cb5-8" data-line-number="8">  <span class="fu">title:</span><span class="at"> Embed content from an external URL</span></a>
-<a class="sourceLine" id="cb5-9" data-line-number="9">  <span class="fu">menu_entry:</span><span class="at"> URL example</span></a>
-<a class="sourceLine" id="cb5-10" data-line-number="10">  <span class="fu">menu_icon:</span><span class="at"> fa-gear</span></a>
-<a class="sourceLine" id="cb5-11" data-line-number="11">  <span class="fu">template:</span><span class="at"> embed-url</span></a>
-<a class="sourceLine" id="cb5-12" data-line-number="12">  <span class="fu">content:</span><span class="at"> https://example.com</span></a></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb5-1"><a href="#cb5-1"></a><span class="fu">foo</span><span class="kw">:</span><span class="at"> </span></span>
+<span id="cb5-2"><a href="#cb5-2"></a><span class="at">  </span><span class="fu">title</span><span class="kw">:</span><span class="at"> Embed raw html content</span></span>
+<span id="cb5-3"><a href="#cb5-3"></a><span class="at">  </span><span class="fu">menu_entry</span><span class="kw">:</span><span class="at"> HTML example</span></span>
+<span id="cb5-4"><a href="#cb5-4"></a><span class="at">  </span><span class="fu">template</span><span class="kw">:</span><span class="at"> embed-html</span></span>
+<span id="cb5-5"><a href="#cb5-5"></a><span class="at">  </span><span class="fu">content</span><span class="kw">:</span><span class="at"> &lt;h3&gt;Hello Rmd Gallery&lt;/h3&gt;</span></span>
+<span id="cb5-6"><a href="#cb5-6"></a></span>
+<span id="cb5-7"><a href="#cb5-7"></a><span class="fu">bar</span><span class="kw">:</span><span class="at"> </span></span>
+<span id="cb5-8"><a href="#cb5-8"></a><span class="at">  </span><span class="fu">title</span><span class="kw">:</span><span class="at"> Embed content from an external URL</span></span>
+<span id="cb5-9"><a href="#cb5-9"></a><span class="at">  </span><span class="fu">menu_entry</span><span class="kw">:</span><span class="at"> URL example</span></span>
+<span id="cb5-10"><a href="#cb5-10"></a><span class="at">  </span><span class="fu">menu_icon</span><span class="kw">:</span><span class="at"> fa-gear</span></span>
+<span id="cb5-11"><a href="#cb5-11"></a><span class="at">  </span><span class="fu">template</span><span class="kw">:</span><span class="at"> embed-url</span></span>
+<span id="cb5-12"><a href="#cb5-12"></a><span class="at">  </span><span class="fu">content</span><span class="kw">:</span><span class="at"> https://example.com</span></span></code></pre></div>
 <p>defines the metadata for pages rendered as <code>foo.html</code> and <code>bar.html</code> with the given page <code>title</code>, also adding the specified <code>menu_entry</code> to the <a href="https://bookdown.org/yihui/rmarkdown/rmarkdown-site.html#site-navigation">site navigation bar</a>. The entry for <code>bar.html</code> in the site navigation bar will also include the specified <code>menu_icon</code>.</p>
 <p>The way metadata, especially the <code>content</code>, are used to produce the resulting page depends on the specified <code>template</code>. Templates might in general make use of additional specific metadata fields, which can also be used for additional content included in the custom site <a href="#configuration-and-customization">configuration</a>.</p>
 <p>The predefined templates provided by <strong>rmdgallery</strong> are described next.</p>
@@ -127,16 +129,16 @@ Remotes:
 <a href="#template-embed-url" class="anchor"></a><code>"template": "embed-url"</code>
 </h4>
 <p>Embed a page given its URL, using <code>&lt;ifame src={{content}}&gt;</code>, where <code>{{content}}</code> is the embedded page URL specified as <code>content</code> in the metadata. In addition, an optional <code>css</code> field in the metadata allows to fine-tune the CSS style of the <code>&lt;iframe&gt;</code>. In particular, <code>height</code> can be useful for defining the height (in valid CSS units) of the embedded non-responsive content, as in the following JSON example:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode json"><code class="sourceCode json"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="fu">{</span></a>
-<a class="sourceLine" id="cb6-2" data-line-number="2">  <span class="dt">"foo"</span><span class="fu">:</span> <span class="fu">{</span></a>
-<a class="sourceLine" id="cb6-3" data-line-number="3">    <span class="dt">"title"</span><span class="fu">:</span> <span class="st">"My Title"</span><span class="fu">,</span></a>
-<a class="sourceLine" id="cb6-4" data-line-number="4">    <span class="dt">"template"</span><span class="fu">:</span> <span class="st">"embed-url"</span><span class="fu">,</span></a>
-<a class="sourceLine" id="cb6-5" data-line-number="5">    <span class="dt">"content"</span><span class="fu">:</span> <span class="st">"https://bookdown.org/yihui/rmarkdown"</span><span class="fu">,</span></a>
-<a class="sourceLine" id="cb6-6" data-line-number="6">    <span class="dt">"css"</span><span class="fu">:</span> <span class="fu">{</span></a>
-<a class="sourceLine" id="cb6-7" data-line-number="7">      <span class="dt">"height"</span><span class="fu">:</span> <span class="st">"80vh"</span></a>
-<a class="sourceLine" id="cb6-8" data-line-number="8">    <span class="fu">}</span></a>
-<a class="sourceLine" id="cb6-9" data-line-number="9">  <span class="fu">}</span></a>
-<a class="sourceLine" id="cb6-10" data-line-number="10"><span class="fu">}</span></a></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb6-1"><a href="#cb6-1"></a><span class="fu">{</span></span>
+<span id="cb6-2"><a href="#cb6-2"></a>  <span class="dt">"foo"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb6-3"><a href="#cb6-3"></a>    <span class="dt">"title"</span><span class="fu">:</span> <span class="st">"My Title"</span><span class="fu">,</span></span>
+<span id="cb6-4"><a href="#cb6-4"></a>    <span class="dt">"template"</span><span class="fu">:</span> <span class="st">"embed-url"</span><span class="fu">,</span></span>
+<span id="cb6-5"><a href="#cb6-5"></a>    <span class="dt">"content"</span><span class="fu">:</span> <span class="st">"https://bookdown.org/yihui/rmarkdown"</span><span class="fu">,</span></span>
+<span id="cb6-6"><a href="#cb6-6"></a>    <span class="dt">"css"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb6-7"><a href="#cb6-7"></a>      <span class="dt">"height"</span><span class="fu">:</span> <span class="st">"80vh"</span></span>
+<span id="cb6-8"><a href="#cb6-8"></a>    <span class="fu">}</span></span>
+<span id="cb6-9"><a href="#cb6-9"></a>  <span class="fu">}</span></span>
+<span id="cb6-10"><a href="#cb6-10"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 <div id="template-embed-html" class="section level4">
 <h4 class="hasAnchor">
@@ -160,52 +162,46 @@ Remotes:
 <div id="configuration-and-customization" class="section level3">
 <h3 class="hasAnchor">
 <a href="#configuration-and-customization" class="anchor"></a>Configuration and customization</h3>
-<p>Configuration and customization of the website specific to <code>rmdgallery::gallery_site_generator</code> are defined by adding a <code>gallery:</code> field to the standard <code>_site.yml</code> configuration file. The following example describes the available options:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode yaml"><code class="sourceCode yaml"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="fu">name:</span><span class="at"> </span><span class="st">"my-website"</span></a>
-<a class="sourceLine" id="cb7-2" data-line-number="2"><span class="fu">navbar:</span></a>
-<a class="sourceLine" id="cb7-3" data-line-number="3">  <span class="fu">title:</span><span class="at"> </span><span class="st">"My Website"</span></a>
-<a class="sourceLine" id="cb7-4" data-line-number="4">  <span class="fu">left:</span></a>
-<a class="sourceLine" id="cb7-5" data-line-number="5">    <span class="kw">-</span> <span class="fu">text:</span><span class="at"> </span><span class="st">"Home"</span></a>
-<a class="sourceLine" id="cb7-6" data-line-number="6">      <span class="fu">href:</span><span class="at"> index.html</span></a>
-<a class="sourceLine" id="cb7-7" data-line-number="7"><span class="fu">gallery:</span></a>
-<a class="sourceLine" id="cb7-8" data-line-number="8">  <span class="fu">meta_dir:</span><span class="at"> </span><span class="st">"meta"</span></a>
-<a class="sourceLine" id="cb7-9" data-line-number="9">  <span class="fu">single_meta:</span><span class="at"> false</span></a>
-<a class="sourceLine" id="cb7-10" data-line-number="10">  <span class="fu">order_by:</span><span class="at"> </span><span class="kw">[</span>title<span class="kw">,</span> desc(another_field)<span class="kw">]</span></a>
-<a class="sourceLine" id="cb7-11" data-line-number="11">  <span class="fu">template_dir:</span><span class="at"> </span><span class="st">"path/to/cutom/templates"</span></a>
-<a class="sourceLine" id="cb7-12" data-line-number="12">  <span class="fu">type_field:</span><span class="at"> my_type</span></a>
-<a class="sourceLine" id="cb7-13" data-line-number="13">  <span class="fu">type_template:</span></a>
-<a class="sourceLine" id="cb7-14" data-line-number="14">    <span class="fu">type_1:</span><span class="at"> embed-url</span></a>
-<a class="sourceLine" id="cb7-15" data-line-number="15">    <span class="fu">type_2:</span><span class="at"> embed-html</span></a>
-<a class="sourceLine" id="cb7-16" data-line-number="16">  <span class="fu">defaults:</span></a>
-<a class="sourceLine" id="cb7-17" data-line-number="17">    <span class="fu">template:</span><span class="at"> embed-url</span></a>
-<a class="sourceLine" id="cb7-18" data-line-number="18">  <span class="fu">navbar:</span></a>
-<a class="sourceLine" id="cb7-19" data-line-number="19">    <span class="fu">left:</span></a>
-<a class="sourceLine" id="cb7-20" data-line-number="20">      <span class="kw">-</span> <span class="fu">text:</span><span class="at"> </span><span class="st">"Gallery"</span></a>
-<a class="sourceLine" id="cb7-21" data-line-number="21">        <span class="fu">icon:</span><span class="at"> fa-gear</span></a>
-<a class="sourceLine" id="cb7-22" data-line-number="22">  <span class="fu">include_before:</span><span class="at"> _includes/before_gallery.html</span></a>
-<a class="sourceLine" id="cb7-23" data-line-number="23">  <span class="fu">include_after:</span><span class="at"> _includes/after_gallery.R</span></a></code></pre></div>
+<p>Configuration and customization of the website specific to <code><a href="reference/gallery_site.html">rmdgallery::gallery_site_generator</a></code> are defined by adding a <code>gallery:</code> field to the standard <code>_site.yml</code> configuration file. The following example describes the available options:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb7-1"><a href="#cb7-1"></a><span class="fu">name</span><span class="kw">:</span><span class="at"> </span><span class="st">"my-website"</span></span>
+<span id="cb7-2"><a href="#cb7-2"></a><span class="fu">navbar</span><span class="kw">:</span></span>
+<span id="cb7-3"><a href="#cb7-3"></a><span class="at">  </span><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"My Website"</span></span>
+<span id="cb7-4"><a href="#cb7-4"></a><span class="at">  </span><span class="fu">left</span><span class="kw">:</span></span>
+<span id="cb7-5"><a href="#cb7-5"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">text</span><span class="kw">:</span><span class="at"> </span><span class="st">"Home"</span></span>
+<span id="cb7-6"><a href="#cb7-6"></a><span class="at">      </span><span class="fu">href</span><span class="kw">:</span><span class="at"> index.html</span></span>
+<span id="cb7-7"><a href="#cb7-7"></a><span class="fu">gallery</span><span class="kw">:</span></span>
+<span id="cb7-8"><a href="#cb7-8"></a><span class="at">  </span><span class="fu">meta_dir</span><span class="kw">:</span><span class="at"> </span><span class="st">"meta"</span></span>
+<span id="cb7-9"><a href="#cb7-9"></a><span class="at">  </span><span class="fu">single_meta</span><span class="kw">:</span><span class="at"> </span><span class="ch">false</span></span>
+<span id="cb7-10"><a href="#cb7-10"></a><span class="at">  </span><span class="fu">order_by</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">title</span><span class="kw">,</span><span class="at"> desc(another_field)</span><span class="kw">]</span></span>
+<span id="cb7-11"><a href="#cb7-11"></a><span class="at">  </span><span class="fu">template_dir</span><span class="kw">:</span><span class="at"> </span><span class="st">"path/to/cutom/templates"</span></span>
+<span id="cb7-12"><a href="#cb7-12"></a><span class="at">  </span><span class="fu">type_field</span><span class="kw">:</span><span class="at"> my_type</span></span>
+<span id="cb7-13"><a href="#cb7-13"></a><span class="at">  </span><span class="fu">type_template</span><span class="kw">:</span></span>
+<span id="cb7-14"><a href="#cb7-14"></a><span class="at">    </span><span class="fu">type_1</span><span class="kw">:</span><span class="at"> embed-url</span></span>
+<span id="cb7-15"><a href="#cb7-15"></a><span class="at">    </span><span class="fu">type_2</span><span class="kw">:</span><span class="at"> embed-html</span></span>
+<span id="cb7-16"><a href="#cb7-16"></a><span class="at">  </span><span class="fu">defaults</span><span class="kw">:</span></span>
+<span id="cb7-17"><a href="#cb7-17"></a><span class="at">    </span><span class="fu">template</span><span class="kw">:</span><span class="at"> embed-url</span></span>
+<span id="cb7-18"><a href="#cb7-18"></a><span class="at">  </span><span class="fu">navbar</span><span class="kw">:</span></span>
+<span id="cb7-19"><a href="#cb7-19"></a><span class="at">    </span><span class="fu">left</span><span class="kw">:</span></span>
+<span id="cb7-20"><a href="#cb7-20"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">text</span><span class="kw">:</span><span class="at"> </span><span class="st">"Gallery"</span></span>
+<span id="cb7-21"><a href="#cb7-21"></a><span class="at">        </span><span class="fu">icon</span><span class="kw">:</span><span class="at"> fa-gear</span></span>
+<span id="cb7-22"><a href="#cb7-22"></a><span class="at">  </span><span class="fu">include_before</span><span class="kw">:</span><span class="at"> _includes/before_gallery.html</span></span>
+<span id="cb7-23"><a href="#cb7-23"></a><span class="at">  </span><span class="fu">include_after</span><span class="kw">:</span><span class="at"> _includes/after_gallery.R</span></span></code></pre></div>
 <ul>
-<li>
-<code>meta_dir:</code> Optional name of the directory containing <code>.json</code>, <code>.yml</code> and <code>.yaml</code> metadata files. Defaults to <code>meta</code> if not specified.</li>
-<li>
-<code>single_meta:</code> Optional <code>true</code> or <code>false</code> defining whether the files define metadata for individual pages, in which case e.g. a file <code>foo.json</code> would contain only the metadata for the <code>foo.html</code> page. Defaults to <code>false</code> if not specified.</li>
-<li>
-<code>order_by</code>: Optional fields used to sort the list of metadata. Use <code>desc(&lt;field&gt;)</code> for decreasing order. If missing, the default <code>page_name</code> is a field added by <strong>rmdgallery</strong> containing the name of the entry in the metadata list for each page.</li>
-<li>
-<code>template_dir:</code> Optional location of additional custom templates.</li>
-<li>
-<code>type_field:</code>, <code>type_template:</code> Optional fields defining custom page <em>types</em> (see <a href="#page-types">‘Page types’</a> above).</li>
-<li>
-<code>defaults:</code> Optional list of default values for unspecified metadata fields.</li>
-<li>
-<code>navbar:</code> The gallery navigation menu to be included in the standard <code>navbar:</code> of <code>_site.yml</code>. The menu is populated with the <code>menu_entry</code> of each page from the metadata. Can be omitted if no such menu should be included.</li>
+<li><p><code>meta_dir:</code> Optional name of the directory containing <code>.json</code>, <code>.yml</code> and <code>.yaml</code> metadata files. Defaults to <code>meta</code> if not specified.</p></li>
+<li><p><code>single_meta:</code> Optional <code>true</code> or <code>false</code> defining whether the files define metadata for individual pages, in which case e.g. a file <code>foo.json</code> would contain only the metadata for the <code>foo.html</code> page. Defaults to <code>false</code> if not specified.</p></li>
+<li><p><code>order_by</code>: Optional fields used to sort the list of metadata. Use <code>desc(&lt;field&gt;)</code> for decreasing order. If missing, the default <code>page_name</code> is a field added by <strong>rmdgallery</strong> containing the name of the entry in the metadata list for each page.</p></li>
+<li><p><code>template_dir:</code> Optional location of additional custom templates.</p></li>
+<li><p><code>type_field:</code>, <code>type_template:</code> Optional fields defining custom page <em>types</em> (see <a href="#page-types">‘Page types’</a> above).</p></li>
+<li><p><code>defaults:</code> Optional list of default values for unspecified metadata fields.</p></li>
+<li><p><code>navbar:</code> The gallery navigation menu to be included in the standard <code>navbar:</code> of <code>_site.yml</code>. The menu is populated with the <code>menu_entry</code> of each page from the metadata. Can be omitted if no such menu should be included.</p></li>
 <li>
 <p><code>include_before:</code>, <code>include_after:</code> Optional path to files defining custom content included before and after the main <code>content</code>. Both are included for each page and may be defined in terms of fields from the metadata using <code>{{...}}</code>. Such placeholders are then processed using <code><a href="https://glue.tidyverse.org/reference/glue.html">glue::glue_data(meta)</a></code>, where <code>meta</code> is the list of metadata for a given page. This allows to use simple string replacements in raw HTML code, as in the following example of <code>_includes/before_gallery.html</code></p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="kw">&lt;hr&gt;</span>include_before for {{title}}<span class="kw">&lt;hr/&gt;</span></a></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode html"><code class="sourceCode html"><span id="cb8-1"><a href="#cb8-1"></a><span class="kw">&lt;hr&gt;</span>include_before for {{title}}<span class="kw">&lt;hr/&gt;</span></span></code></pre></div>
 <p>but also to define complete R expressions constructing HTML elements via <a href="https://cran.r-project.org/package=htmltools"><strong>htmltools</strong></a>, as in the following <code>_includes/after_gallery.R</code>:</p>
-<div class="sourceCode" id="cb9"><pre class="r">{{<span class="kw pkg">htmltools</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/htmltools/man/tag.html">tagList</a></span>(
-    <span class="kw pkg">htmltools</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/htmltools/man/builder.html">hr</a></span>(), <span class="st">"include_after for"</span>, <span class="no">title</span>, <span class="kw pkg">htmltools</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/htmltools/man/builder.html">hr</a></span>()
-)}}</pre></div>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="op">{</span><span class="op">{</span><span class="fu">htmltools</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/htmltools/man/tag.html">tagList</a></span><span class="op">(</span>
+    <span class="fu">htmltools</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/htmltools/man/builder.html">hr</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"include_after for"</span>, <span class="va">title</span>, <span class="fu">htmltools</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/htmltools/man/builder.html">hr</a></span><span class="op">(</span><span class="op">)</span>
+<span class="op">)</span><span class="op">}</span><span class="op">}</span></code></pre></div>
 </li>
 </ul>
 <p>You can see the various elements of the configuration in action in the <a href="https://github.com/riccardoporreca/rmd-gallery-example#readme">rmd-gallery-example</a> GitHub repository.</p>
@@ -221,22 +217,22 @@ Remotes:
 <p>Besides the templates provided with <strong>rmdgallery</strong> (described above), it is possible to define custom R Markdown templates. These are standard R Markdown documents (as you would normally include in a <a href="https://bookdown.org/yihui/rmarkdown/rmarkdown-site.html">simple R Markdown website</a>), which however will be populated with specific page metadata using two mechanisms:</p>
 <ul>
 <li><p>Similar to what described for <code>include_before:</code>, <code>include_after:</code> above, any expression <code>{{...}}</code> is evaluated via <code><a href="https://glue.tidyverse.org/reference/glue.html">glue::glue_data(meta)</a></code> by looking up values from the list of metadata extracted from the JSON and YAML file(s). For example, the placeholder <code>{{toupper(title)}}</code> will be replaced with the uppercase version of the <code>title:</code> entry in the metadata. Such elements can be placed anywhere in the R Markdown document (not necessarily a code chunk), and make use of <a href="https://cran.r-project.org/package=htmltools"><strong>htmltools</strong></a> (see again <code>include_before:</code>, <code>include_after:</code> from the <code>gallery:</code> configuration above).</p></li>
-<li><p>When the template is rendered for a given page, the metadata are also passed as <code>params</code> list. As such, templates work like <a href="https://bookdown.org/yihui/rmarkdown/parameterized-reports.html">parameterized reports</a> and the relevant metadata should be declared as <code>params:</code> in the YAML front matter, along with sensible defaults. Metadata defined in this way are then evaluated as e.g. <code>params$content</code> in R code chunks or via <code>`r params$content`</code> inline.</p></li>
+<li><p>When the template is rendered for a given page, the metadata are also passed as <code>params</code> list. As such, templates work like <a href="https://bookdown.org/yihui/rmarkdown/parameterized-reports.html">parameterized reports</a> and the relevant metadata should be declared as <code>params:</code> in the YAML front matter, along with sensible defaults. Metadata defined in this way are then evaluated as e.g. <code>params$content</code> in R code chunks or via <code>`r params$content`</code> inline.</p></li>
 </ul>
 <p>The two approaches can coexist, but keep in mind that rendering the template as parameterized report happens <strong>after</strong> evaluating <code>{{...}}</code> placeholders. Also note that <code>params</code> cannot be used in the YAML front matter, so you should only use <code>{{...}}</code> there, which is always the case with <code>title: {{title}}</code>.</p>
 <p>In addition to the metadata in the JSON and YAML files, a <code>gallery_config</code> element with the content of <code>gallery:</code> from the <code>_site.yml</code> configuration is also available when processing the template. In particular, <code>gallery_config$include_before</code> and <code>gallery_config$include_after</code> are added with placeholder expressions already evaluated, and templates should explicitly make use them to include them in the rendered page content.</p>
-<p>Function <code>rmdgallery::gallery_content()</code> facilitates the construction of the content in a standardized way and it usage is recommended. In particular, it handles <code>gallery_config$include_before</code> and <code>gallery_config$include_after</code> and provides a common set of classed HTML elements (see below).</p>
+<p>Function <code><a href="reference/gallery_content.html">rmdgallery::gallery_content()</a></code> facilitates the construction of the content in a standardized way and it usage is recommended. In particular, it handles <code>gallery_config$include_before</code> and <code>gallery_config$include_after</code> and provides a common set of classed HTML elements (see below).</p>
 <p>The templates provided within the package can be seen under ‘inst/templates’ in the source package, and are available at <code><a href="https://rdrr.io/r/base/system.file.html">system.file("templates", package = "rmdgallery")</a></code> for the installed package.</p>
 </div>
 <div id="css-customization" class="section level3">
 <h3 class="hasAnchor">
 <a href="#css-customization" class="anchor"></a>CSS customization</h3>
-<p>The content of gallery pages constructed using the provided templates (or any custom template making use of <code>rmdgallery::gallery_content()</code>) have the following general structure (see also <code>?rmdgallery::gallery_content</code>)</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">"gallery-container {template/metadata-specific classes}"</span><span class="kw">&gt;</span></a>
-<a class="sourceLine" id="cb10-2" data-line-number="2">  <span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">"gallery-before"</span><span class="kw">&gt;</span>{include_before}<span class="kw">&lt;/div&gt;</span></a>
-<a class="sourceLine" id="cb10-3" data-line-number="3">  <span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">"gallery-main"</span><span class="kw">&gt;</span>{main content}<span class="kw">&lt;/div&gt;</span></a>
-<a class="sourceLine" id="cb10-4" data-line-number="4">  <span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">"gallery-before"</span><span class="kw">&gt;</span>{include_after}<span class="kw">&lt;/div&gt;</span></a>
-<a class="sourceLine" id="cb10-5" data-line-number="5"><span class="kw">&lt;/div&gt;</span></a></code></pre></div>
+<p>The content of gallery pages constructed using the provided templates (or any custom template making use of <code><a href="reference/gallery_content.html">rmdgallery::gallery_content()</a></code>) have the following general structure (see also <code><a href="reference/gallery_content.html">?rmdgallery::gallery_content</a></code>)</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode html"><code class="sourceCode html"><span id="cb10-1"><a href="#cb10-1"></a><span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">"gallery-container {template/metadata-specific classes}"</span><span class="kw">&gt;</span></span>
+<span id="cb10-2"><a href="#cb10-2"></a>  <span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">"gallery-before"</span><span class="kw">&gt;</span>{include_before}<span class="kw">&lt;/div&gt;</span></span>
+<span id="cb10-3"><a href="#cb10-3"></a>  <span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">"gallery-main"</span><span class="kw">&gt;</span>{main content}<span class="kw">&lt;/div&gt;</span></span>
+<span id="cb10-4"><a href="#cb10-4"></a>  <span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">"gallery-before"</span><span class="kw">&gt;</span>{include_after}<span class="kw">&lt;/div&gt;</span></span>
+<span id="cb10-5"><a href="#cb10-5"></a><span class="kw">&lt;/div&gt;</span></span></code></pre></div>
 <p>which provide a convenient basis for styling the elements using CSS selectors.</p>
 </div>
 </div>
@@ -270,8 +266,7 @@ Remotes:
   <div class="dev-status">
 <h2>Dev status</h2>
 <ul class="list-unstyled">
-<li><a href="https://github.com/riccardoporreca/rmdgallery/actions"><img src="https://github.com/riccardoporreca/rmdgallery/workflows/R-CMD-check/badge.svg" alt="R build status"></a></li>
-<li><a href="https://travis-ci.com/riccardoporreca/rmdgallery"><img src="https://travis-ci.com/riccardoporreca/rmdgallery.svg?branch=master" alt="Travis build status"></a></li>
+<li><a href="https://github.com/riccardoporreca/rmdgallery/actions/workflows/ci.yaml"><img src="https://github.com/riccardoporreca/rmdgallery/actions/workflows/ci.yaml/badge.svg" alt="CI"></a></li>
 <li><a href="https://codecov.io/gh/riccardoporreca/rmdgallery?branch=master"><img src="https://codecov.io/gh/riccardoporreca/rmdgallery/branch/master/graph/badge.svg" alt="Codecov test coverage"></a></li>
 </ul>
 </div>
@@ -284,7 +279,7 @@ Remotes:
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>
