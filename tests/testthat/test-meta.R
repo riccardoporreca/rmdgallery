@@ -17,10 +17,9 @@ test_that("Metadata files with supported extensions are detected", {
   meta_files <- tempfile(tmpdir = meta_dir, fileext = meta_ext)
   other_files <- tempfile(tmpdir = meta_dir, fileext = c(".foo", ".bar", ""))
   file.create(c(meta_files, other_files))
-  message(site_meta_files(meta_dir))
   testthat::expect_setequal(
-    site_meta_files(meta_dir),
-    meta_files
+    normalizePath(site_meta_files(meta_dir)),
+    normalizePath(meta_files)
   )
   unlink(meta_dir, recursive = TRUE)
 })
