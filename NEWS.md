@@ -1,3 +1,5 @@
+# rmdgallery (development version)
+
 # rmdgallery 0.4.1
 
 ## CI maintenance
