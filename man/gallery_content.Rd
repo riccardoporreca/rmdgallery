@@ -19,12 +19,12 @@ after the main content. If character, their value is wrapped inside
 }
 \value{
 The function constructs and returns the page content as a parent
-\code{\link[htmltools:div]{htmltools::div()}} HTML tag object with class \code{"gallery-container"} with
+\code{\link[htmltools:builder]{htmltools::div()}} HTML tag object with class \code{"gallery-container"} with
 three \code{div()} children.
 \itemize{
 \item One containing \code{gallery_config$include_before} (if present), with class
 \code{"gallery-before"}.
-\item One wrapping the main content items \code{...} via \code{\link[htmltools:tagList]{htmltools::tagList()}}
+\item One wrapping the main content items \code{...} via \code{\link[htmltools:tag]{htmltools::tagList()}}
 content, with class \code{"gallery-main"}.
 \item One containing \code{gallery_config$include_after} (if present), with class
 \code{"gallery-after"}, and are wrapped in a parent \verb{<div>} with class
