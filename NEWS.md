@@ -1,4 +1,6 @@
-# rmdgallery (development version)
+# rmdgallery 0.4.1
+
+## CI maintenance
 
 - Continuous Integration maintenance, based on GitHub Actions only, now including code coverage and `pkgdown`, formerly done via Travis CI (#28).
 
