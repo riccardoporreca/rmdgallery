@@ -152,7 +152,7 @@ after the main content. If character, their value is wrapped inside
 three <code>div()</code> children.</p><ul>
 <li><p>One containing <code>gallery_config$include_before</code> (if present), with class
 <code>"gallery-before"</code>.</p></li>
-<li><p>One wrapping the main content items <code>...</code> via <code><a href='https://rdrr.io/pkg/htmltools/man/tag.html'>htmltools::tagList()</a></code>
+<li><p>One wrapping the main content items <code>...</code> via <code><a href='https://rdrr.io/pkg/htmltools/man/builder.html'>htmltools::tagList()</a></code>
 content, with class <code>"gallery-main"</code>.</p></li>
 <li><p>One containing <code>gallery_config$include_after</code> (if present), with class
 <code>"gallery-after"</code>, and are wrapped in a parent <code>&lt;div&gt;</code> with class</p></li>
@@ -166,7 +166,7 @@ content, with class <code>"gallery-main"</code>.</p></li>
   <span class='st'>"Welcome to the gallery content world"</span>,
   gallery_config <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>
     include_before <span class='op'>=</span> <span class='st'>"before&lt;hr/&gt;"</span>,
-    include_after <span class='op'>=</span> <span class='fu'>htmltools</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/htmltools/man/tag.html'>tagList</a></span><span class='op'>(</span><span class='fu'>htmltools</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/htmltools/man/builder.html'>hr</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='st'>"after"</span><span class='op'>)</span>
+    include_after <span class='op'>=</span> <span class='fu'>htmltools</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/htmltools/man/tagList.html'>tagList</a></span><span class='op'>(</span><span class='fu'>htmltools</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/htmltools/man/builder.html'>hr</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='st'>"after"</span><span class='op'>)</span>
   <span class='op'>)</span>,
   class <span class='op'>=</span> <span class='st'>"hello-gallery"</span>
 <span class='op'>)</span>
