@@ -42,6 +42,8 @@ jobs:
       - uses: r-lib/actions/setup-pandoc@v1
 
       - uses: r-lib/actions/setup-r@v1
+        # this gets often stuck (esp. on macOS) for the default 6h timeout
+        timeout-minutes: 5
         with:
           r-version: ${{ matrix.config.r }}
           http-user-agent: ${{ matrix.config.http-user-agent }}
