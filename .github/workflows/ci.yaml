@@ -49,6 +49,15 @@ jobs:
           http-user-agent: ${{ matrix.config.http-user-agent }}
           use-public-rspm: true
 
+      - name: Ensure symlinks to the installed R and Rscript on macOS
+        # work around https://github.com/r-lib/actions/issues/412
+        if: runner.os == 'macOS'
+        run: |
+          sudo ln -sf $R_HOME/bin/R /usr/local/bin
+          sudo ln -sf $R_HOME/bin/Rscript /usr/local/bin
+        env:
+          R_HOME: /Library/Frameworks/R.framework/Resources
+
       - uses: r-lib/actions/setup-r-dependencies@v1
         with:
           extra-packages: rcmdcheck
