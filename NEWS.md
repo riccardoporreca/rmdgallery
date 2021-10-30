@@ -1,3 +1,9 @@
+# rmdgallery 0.4.2
+
+## CI maintenance
+
+- Continuous Integration maintenance, based on simplified GitHub Actions workflows with special handling for macOS (#31).
+
 # rmdgallery 0.4.1
 
 ## CI maintenance
