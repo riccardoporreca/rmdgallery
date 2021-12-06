@@ -1,7 +1,7 @@
 # Workflow derived from https://github.com/r-lib/actions/tree/master/examples
 # Need help debugging build failures? Start at https://github.com/r-lib/actions#where-to-find-help
 
-# Dummy change to trigger CI
+# Dummy edit to trigger CI
 # Trigger the workflow...
 on:
   # ...on push or pull request
