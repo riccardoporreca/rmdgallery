@@ -55,7 +55,7 @@ gallery configuration.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">gallery_content</span><span class="op">(</span><span class="va">...</span>, gallery_config <span class="op">=</span> <span class="cn">NULL</span>, class <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">gallery_content</span><span class="op">(</span><span class="va">...</span>, gallery_config <span class="op">=</span> <span class="cn">NULL</span>, class <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -93,15 +93,15 @@ content, with class <code>"gallery-main"</code>.</p></li>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu">gallery_content</span><span class="op">(</span></span>
-<span class="r-in">  <span class="fu">htmltools</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/htmltools/man/builder.html" class="external-link">h2</a></span><span class="op">(</span><span class="st">"Hello world"</span><span class="op">)</span>,</span>
-<span class="r-in">  <span class="st">"Welcome to the gallery content world"</span>,</span>
-<span class="r-in">  gallery_config <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span class="r-in">    include_before <span class="op">=</span> <span class="st">"before&lt;hr/&gt;"</span>,</span>
-<span class="r-in">    include_after <span class="op">=</span> <span class="fu">htmltools</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/htmltools/man/tagList.html" class="external-link">tagList</a></span><span class="op">(</span><span class="fu">htmltools</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/htmltools/man/builder.html" class="external-link">hr</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"after"</span><span class="op">)</span></span>
-<span class="r-in">  <span class="op">)</span>,</span>
-<span class="r-in">  class <span class="op">=</span> <span class="st">"hello-gallery"</span></span>
-<span class="r-in"><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">gallery_content</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="fu">htmltools</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/htmltools/man/builder.html" class="external-link">h2</a></span><span class="op">(</span><span class="st">"Hello world"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  <span class="st">"Welcome to the gallery content world"</span>,</span></span>
+<span class="r-in"><span>  gallery_config <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>    include_before <span class="op">=</span> <span class="st">"before&lt;hr/&gt;"</span>,</span></span>
+<span class="r-in"><span>    include_after <span class="op">=</span> <span class="fu">htmltools</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/htmltools/man/tagList.html" class="external-link">tagList</a></span><span class="op">(</span><span class="fu">htmltools</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/htmltools/man/builder.html" class="external-link">hr</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"after"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span>,</span></span>
+<span class="r-in"><span>  class <span class="op">=</span> <span class="st">"hello-gallery"</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;div class="gallery-container hello-gallery"&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;div class="gallery-before"&gt;before&lt;hr/&gt;&lt;/div&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;div class="gallery-main"&gt;</span>
@@ -113,7 +113,7 @@ content, with class <code>"gallery-main"</code>.</p></li>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     after</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   &lt;/div&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;/div&gt;</span>
-<span class="r-in"></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
