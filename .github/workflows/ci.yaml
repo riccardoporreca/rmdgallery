@@ -12,6 +12,10 @@ on:
 
 name: CI
 
+# Sets permissions of the GITHUB_TOKEN to allow pushing to the gh-pages branch
+permissions:
+  contents: write
+
 jobs:
   CI:
     runs-on: ${{ matrix.config.os }}
