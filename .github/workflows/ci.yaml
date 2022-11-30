@@ -39,9 +39,9 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - uses: r-lib/actions/setup-pandoc@v1
+      - uses: r-lib/actions/setup-pandoc@v2
 
-      - uses: r-lib/actions/setup-r@v1
+      - uses: r-lib/actions/setup-r@v2
         # this gets often stuck (esp. on macOS) for the default 6h timeout
         timeout-minutes: 5
         with:
@@ -49,32 +49,14 @@ jobs:
           http-user-agent: ${{ matrix.config.http-user-agent }}
           use-public-rspm: true
 
-      - name: Ensure symlinks to the installed R and Rscript on macOS
-        # work around https://github.com/r-lib/actions/issues/412
-        if: runner.os == 'macOS'
-        run: |
-          sudo ln -sf $R_HOME/bin/R /usr/local/bin
-          sudo ln -sf $R_HOME/bin/Rscript /usr/local/bin
-        env:
-          R_HOME: /Library/Frameworks/R.framework/Resources
-
-      - uses: r-lib/actions/setup-r-dependencies@v1
+      - uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          extra-packages: rcmdcheck
+          extra-packages: any::rcmdcheck
+          needs: check
 
-      - uses: r-lib/actions/check-r-package@v1
-
-      - name: Show testthat output
-        if: always()
-        run: find check -name 'testthat.Rout*' -exec cat '{}' \; || true
-        shell: bash
-
-      - name: Upload check results
-        if: failure()
-        uses: actions/upload-artifact@main
+      - uses: r-lib/actions/check-r-package@v2
         with:
-          name: ${{ runner.os }}-r${{ matrix.config.r }}-results
-          path: check
+          upload-snapshots: true
 
       - name: Test coverage
         if: success() && runner.os == 'Linux' && matrix.config.r == 'release'
